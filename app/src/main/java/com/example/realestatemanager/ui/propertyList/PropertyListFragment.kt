@@ -6,9 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.realestatemanager.databinding.PropertyDetailFragmentBinding
+import com.example.realestatemanager.databinding.PropertyListFragmentBinding
 
 class PropertyListFragment : Fragment() {
-    private var _binding: PropertyDetailFragmentBinding? = null
+    private var _binding: PropertyListFragmentBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -16,7 +17,7 @@ class PropertyListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = PropertyDetailFragmentBinding.inflate(inflater, container, false)
+        _binding = PropertyListFragmentBinding.inflate(inflater,container,false)
         return binding.root
     }
 
