@@ -9,8 +9,8 @@ import com.example.realestatemanager.databinding.PropertyDetailFragmentBinding
 
 class PropertyDetailFragment : Fragment() {
 
-    var _binding : PropertyDetailFragmentBinding? = null
-    val binding get() = _binding!!
+    private var _binding : PropertyDetailFragmentBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
