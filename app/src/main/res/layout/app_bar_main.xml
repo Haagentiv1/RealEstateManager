@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         app:title="@string/app_name"
-        app:menu="@menu/top_app_bar"
+        app:menu="@menu/top_app_bar_menu"
         app:navigationIcon="@drawable/ic_outline_location_on_24"
         style="@style/Widget.MaterialComponents.Toolbar.Primary"/>
 </com.google.android.material.appbar.AppBarLayout>
