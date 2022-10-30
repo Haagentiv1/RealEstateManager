@@ -1,14 +1,19 @@
 package com.example.realestatemanager.ui.main
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.util.AttributeSet
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.realestatemanager.R
 import com.example.realestatemanager.databinding.MainActivityBinding
+import com.example.realestatemanager.ui.propertyDetail.PropertyDetailActivity
 import com.example.realestatemanager.ui.propertyDetail.PropertyDetailFragment
 import com.example.realestatemanager.ui.propertyList.PropertyListFragment
 import com.google.android.material.appbar.MaterialToolbar
@@ -48,7 +53,7 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.navigateSingleLiveEvent.observe(this) {
             when (it) {
-                MainViewAction.NavigateToCreatePropertyActivity -> Toast.makeText(this,"",Toast.LENGTH_LONG).show()
+                MainViewAction.NavigateToCreatePropertyActivity -> startActivity(Intent(this@MainActivity,PropertyDetailActivity::class.java))
                 MainViewAction.NavigateToPropertyDetailActivity -> TODO()
                 MainViewAction.NavigateToPropertyMapExplorerActivity -> TODO()
                 MainViewAction.NavigateToRealEstateLoanActivity -> TODO()
@@ -57,14 +62,17 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
       super.onOptionsItemSelected(item)
         when(item.itemId){
             R.id.menu_item_add -> {
-                TODO()
+                Log.e("itemSelect","test")
+                viewModel.state.postValue("test")
             }
         }
-        return true
+        return false
 
     }
 

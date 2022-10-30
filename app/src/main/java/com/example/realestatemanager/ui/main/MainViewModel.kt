@@ -10,9 +10,7 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor() : ViewModel() {
 
     private var isTablet: Boolean = false
-    val state = MediatorLiveData<String>().apply {
-        value = ""
-    }
+    var state = MediatorLiveData<String>()
     val navigateSingleLiveEvent = SingleLiveEvent<MainViewAction>()
 
 
