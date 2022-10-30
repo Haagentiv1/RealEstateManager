@@ -124,5 +124,60 @@
         app:layout_constraintBottom_toBottomOf="@id/property_detail_numberOfBathRooms_title"
         app:layout_constraintStart_toEndOf="@id/property_detail_numberOfBathRooms_title"/>
 
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/property_detail_realEstateLocationTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="120dp"
+        android:text="Location"
+        app:drawableStartCompat="@drawable/ic_outline_location_on_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/property_detail_numberOfBathRooms_title" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/property_detail_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ffffffffff"
+        app:layout_constraintTop_toBottomOf="@id/property_detail_realEstateLocationTitle"
+        app:layout_constraintStart_toStartOf="@id/property_detail_realEstateLocationTitle"/>
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/property_detail_flatNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ffffffffff"
+        app:layout_constraintTop_toBottomOf="@id/property_detail_address"
+        app:layout_constraintStart_toStartOf="@id/property_detail_realEstateLocationTitle"/>
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/property_detail_town"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ffffffffff"
+        app:layout_constraintTop_toBottomOf="@id/property_detail_flatNumber"
+        app:layout_constraintStart_toStartOf="@id/property_detail_realEstateLocationTitle"/>
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/property_detail_zipcode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ffffffffff"
+        app:layout_constraintTop_toBottomOf="@id/property_detail_town"
+        app:layout_constraintStart_toStartOf="@id/property_detail_realEstateLocationTitle"/>
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/property_detail_country"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ffffffffff"
+        app:layout_constraintTop_toBottomOf="@id/property_detail_zipcode"
+        app:layout_constraintStart_toStartOf="@id/property_detail_realEstateLocationTitle"/>
+
+    <ImageView
+        android:id="@+id/property_detail_mapStaticContainer_iv"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/property_detail_country" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

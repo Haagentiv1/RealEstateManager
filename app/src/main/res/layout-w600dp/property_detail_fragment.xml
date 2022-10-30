@@ -142,6 +142,42 @@
         app:layout_constraintEnd_toStartOf="@+id/property_detail_mapStaticContainer_iv"
         app:layout_constraintTop_toBottomOf="@+id/property_detail_tv_description" />
 
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/property_detail_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ffffffffff"
+        app:layout_constraintTop_toBottomOf="@id/property_detail_realEstateLocationTitle"
+        app:layout_constraintStart_toStartOf="@id/property_detail_realEstateLocationTitle"/>
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/property_detail_flatNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ffffffffff"
+        app:layout_constraintTop_toBottomOf="@id/property_detail_address"
+        app:layout_constraintStart_toStartOf="@id/property_detail_realEstateLocationTitle"/>
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/property_detail_town"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ffffffffff"
+        app:layout_constraintTop_toBottomOf="@id/property_detail_flatNumber"
+        app:layout_constraintStart_toStartOf="@id/property_detail_realEstateLocationTitle"/>
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/property_detail_zipcode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ffffffffff"
+        app:layout_constraintTop_toBottomOf="@id/property_detail_town"
+        app:layout_constraintStart_toStartOf="@id/property_detail_realEstateLocationTitle"/>
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/property_detail_country"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ffffffffff"
+        app:layout_constraintTop_toBottomOf="@id/property_detail_zipcode"
+        app:layout_constraintStart_toStartOf="@id/property_detail_realEstateLocationTitle"/>
+
 
 
 
