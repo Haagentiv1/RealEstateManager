@@ -26,8 +26,6 @@ class PropertyDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.e("propertyfragmenttest","testcreated")
-        binding.propertyDetailAddress.text = "24 rue de fleurimont"
     }
 
     override fun onDestroyView() {
