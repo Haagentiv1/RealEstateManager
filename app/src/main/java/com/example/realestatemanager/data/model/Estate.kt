@@ -4,15 +4,15 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "property")
-data class Property(
+@Entity(tableName = "estate")
+data class Estate(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     @ColumnInfo(name = "name") val type: String,
     @ColumnInfo(name = "surface") val surface: Int,
     @ColumnInfo(name = "number_of_rooms") val numberOfRooms: Int,
     @ColumnInfo(name = "number_of_bathrooms")  val numberOfBathrooms: Int,
     @ColumnInfo(name = "pictures") val pictures: List<String>,
-    @ColumnInfo(name = "location") val location: PropertyLocation,
+    @ColumnInfo(name = "location") val location: EstateLocation,
     @ColumnInfo(name = "poi") val poi: List<String>,
     @ColumnInfo(name = "status") val status: Boolean,
     @ColumnInfo(name ="entry_date") val entryDate: String,

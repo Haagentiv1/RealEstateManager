@@ -1,6 +1,6 @@
 package com.example.realestatemanager.data.model
 
-data class PropertyLocation(
+data class EstateLocation(
     var address: String,
     var flatNumber: String,
     var town: String,
