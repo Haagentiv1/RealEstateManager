@@ -57,7 +57,16 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+      super.onOptionsItemSelected(item)
+        when(item.itemId){
+            R.id.menu_item_add -> {
+                TODO()
+            }
+        }
+        return true
 
+    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         super.onCreateOptionsMenu(menu)

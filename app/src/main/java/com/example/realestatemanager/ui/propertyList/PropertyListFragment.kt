@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import com.example.realestatemanager.databinding.PropertyDetailFragmentBinding
 import com.example.realestatemanager.databinding.PropertyListFragmentBinding
 
+
 class PropertyListFragment : Fragment() {
     private var _binding: PropertyListFragmentBinding? = null
     private val binding get() = _binding!!
