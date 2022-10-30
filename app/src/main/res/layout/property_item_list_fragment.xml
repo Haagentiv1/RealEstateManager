@@ -33,7 +33,6 @@
             android:id="@+id/property_item_tv_propertyType"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:fontFamily="@font/roboto"
             tools:text="@tools:sample/lorem"
             app:layout_constraintBottom_toTopOf="@+id/property_item_tv_propertyTown"
             app:layout_constraintStart_toEndOf="@id/property_item_tv_propertyPicture"

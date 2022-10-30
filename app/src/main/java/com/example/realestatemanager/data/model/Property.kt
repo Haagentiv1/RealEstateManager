@@ -1,19 +1,22 @@
 package com.example.realestatemanager.data.model
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 @Entity(tableName = "property")
 data class Property(
-    val id: Int,
-    val type: String,
-    val surface: Int,
-    val numberOfRooms: Int,
-    val numberOfBathRooms: Int,
-    val pictures: List<String>,
-    val location: PropertyLocation,
-    val poi: List<String>,
-    val status: Boolean,
-    val entryDate: String,
-    val saleDate: String,
-    val estateManagerName: String
-    )
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    @ColumnInfo(name = "name") val type: String,
+    @ColumnInfo(name = "surface") val surface: Int,
+    @ColumnInfo(name = "number_of_rooms") val numberOfRooms: Int,
+    @ColumnInfo(name = "number_of_bathrooms")  val numberOfBathrooms: Int,
+    @ColumnInfo(name = "pictures") val pictures: List<String>,
+    @ColumnInfo(name = "location") val location: PropertyLocation,
+    @ColumnInfo(name = "poi") val poi: List<String>,
+    @ColumnInfo(name = "status") val status: Boolean,
+    @ColumnInfo(name ="entry_date") val entryDate: String,
+    @ColumnInfo(name = "saleDate") val saleDate: String,
+    @ColumnInfo(name = "estateManagerName") val estateManagerName: String
+
+)
