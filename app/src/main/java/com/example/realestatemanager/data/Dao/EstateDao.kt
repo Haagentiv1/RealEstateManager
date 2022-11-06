@@ -1,4 +1,4 @@
-package com.example.realestatemanager.data.DAO
+package com.example.realestatemanager.data.Dao
 
 import androidx.room.Dao
 import androidx.room.Insert
@@ -13,16 +13,16 @@ import kotlinx.coroutines.flow.Flow
 interface EstateDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(estate: Estate)
+    suspend fun insertEstate(estate: Estate)
 
     @Update
-    suspend fun update(estate: Estate)
+    suspend fun updateEstate(estate: Estate)
 
 
     @Query("SELECT * FROM estate WHERE id = :id")
-    fun getItem(id:Int) : Flow<Estate>
+    fun getEstateById(id:Int) : Estate?
 
     @Query("SELECT * FROM estate")
-    fun getItems() : Flow<List<Estate>>
+    fun getEstates() : Flow<List<Estate>>
 
 }
