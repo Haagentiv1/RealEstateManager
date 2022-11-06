@@ -1,9 +1,7 @@
 package com.example.realestatemanager.data.db
 
 
-import android.content.Context
 import androidx.room.Database
-import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.realestatemanager.data.Converters
@@ -17,21 +15,5 @@ abstract class EstateDatabase : RoomDatabase() {
 
     companion object {
         const val DATABASE_NAME = "estate_database"
-        @Volatile
-        private var INSTANCE: EstateDatabase? = null
-        fun getDatabase(context: Context): EstateDatabase {
-            return INSTANCE ?: synchronized(this) {
-                val instance =
-                    Room.databaseBuilder(
-                        context.applicationContext,
-                        EstateDatabase::class.java,
-                        "estate_database"
-                    )
-                        .fallbackToDestructiveMigration()
-                        .build()
-                INSTANCE = instance
-                return instance
-            }
-        }
     }
 }
