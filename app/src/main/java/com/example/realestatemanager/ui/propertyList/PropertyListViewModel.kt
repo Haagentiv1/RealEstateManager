@@ -22,7 +22,7 @@ class PropertyListViewModel @Inject constructor(
 
 
     val estatesLiveData: LiveData<List<EstateListItemViewState>> =
-        estateRepository.getEstates().map { estates ->
+        estateRepository.estates.map { estates ->
             Log.e("listsize",estates.size.toString())
 
             estates.map {
