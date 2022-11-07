@@ -5,14 +5,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.example.realestatemanager.data.model.Estate
 import com.example.realestatemanager.databinding.PropertyItemListFragmentBinding
 import javax.inject.Inject
 
-class EstateListAdapter @Inject constructor(
-    private val glide: RequestManager,
-    private val listener: (id: String) -> Unit
+class EstateListAdapter (
+    private val listener: (id: Int) -> Unit
 ) : ListAdapter<EstateListItemViewState, EstateListAdapter.EstateViewHolder>(EstateComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EstateViewHolder =
@@ -25,13 +25,13 @@ class EstateListAdapter @Inject constructor(
         )
 
     override fun onBindViewHolder(holder: EstateViewHolder, position: Int) {
-        holder.bind(getItem(position), listener,glide)
+        holder.bind(getItem(position), listener)
     }
 
     class EstateViewHolder(private val binding: PropertyItemListFragmentBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: EstateListItemViewState, listener: (id: String) -> Unit,glide: RequestManager) {
-            glide.load(item.picture).into(binding.propertyItemTvPropertyPicture)
+        fun bind(item: EstateListItemViewState, listener: (id: Int) -> Unit) {
+            Glide.with(binding.root).load(item.picture).into(binding.propertyItemTvPropertyPicture)
             binding.propertyItemTvPropertyType.text = item.type
             binding.propertyItemTvPropertyTown.text = item.town
             binding.propertyItemTvPropertyPrice.text = item.price
