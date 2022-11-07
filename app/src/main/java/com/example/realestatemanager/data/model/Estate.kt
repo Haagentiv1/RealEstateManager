@@ -10,7 +10,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 @Entity(tableName = "estate")
 data class Estate(
-    @PrimaryKey(autoGenerate = true) val id: Int,
+    @PrimaryKey(autoGenerate = true) val id: Int?,
     @ColumnInfo(name = "name") val type: String,
     @ColumnInfo(name = "description") val description: String,
     @ColumnInfo(name = "price") val price : String,

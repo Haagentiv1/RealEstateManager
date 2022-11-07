@@ -27,7 +27,7 @@ class PropertyListViewModel @Inject constructor(
 
             estates.map {
                 EstateListItemViewState(
-                    it.id,
+                    it.id!!,
                     it.pictures!![0],
                     it.price,
                     it.type,

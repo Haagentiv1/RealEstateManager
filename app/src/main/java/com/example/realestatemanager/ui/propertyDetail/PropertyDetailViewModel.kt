@@ -19,7 +19,7 @@ class PropertyDetailViewModel @Inject constructor(
                 liveData(context = viewModelScope.coroutineContext + Dispatchers.IO) {
                     val result = estateRepository.getEstateById(id).map { estate ->
                         PropertyDetailViewState(
-                            id = estate!!.id,
+                            id = estate!!.id!!,
                             picturesList = estate.pictures!!,
                             description = estate.description,
                             surface = estate.surface,
