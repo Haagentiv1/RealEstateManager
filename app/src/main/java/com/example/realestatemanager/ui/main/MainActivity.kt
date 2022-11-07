@@ -92,6 +92,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+
         viewModel.onConfigurationChanged(resources.getBoolean(R.bool.isTablet))
     }
 }

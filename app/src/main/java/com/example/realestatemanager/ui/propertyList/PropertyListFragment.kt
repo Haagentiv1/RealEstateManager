@@ -40,7 +40,7 @@ class PropertyListFragment : Fragment() {
         viewModel.estatesLiveData.observe(viewLifecycleOwner) {
             adapter.submitList(it)
         }
-        addData()
+
     }
 
     private fun addData() {
@@ -63,9 +63,6 @@ class PropertyListFragment : Fragment() {
                 estateManagerName = "tristan"
                 )
         viewModel.addEstate(estate)
-
-
-
     }
 
 
