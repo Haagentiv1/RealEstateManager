@@ -1,5 +1,6 @@
 package com.example.realestatemanager.data.Dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -20,7 +21,7 @@ interface EstateDao {
 
 
     @Query("SELECT * FROM estate WHERE id = :id")
-    fun getEstateById(id:Int) : Estate?
+    fun getEstateById(id:Int) : LiveData<Estate?>
 
     @Query("SELECT * FROM estate")
     fun getEstates() : Flow<List<Estate>>
