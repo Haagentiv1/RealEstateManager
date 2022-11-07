@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.realestatemanager">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".ui.MainApplication"
         android:allowBackup="true"
