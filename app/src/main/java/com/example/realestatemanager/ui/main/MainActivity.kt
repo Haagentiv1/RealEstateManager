@@ -53,8 +53,8 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.navigateSingleLiveEvent.observe(this) {
             when (it) {
-                MainViewAction.NavigateToCreatePropertyActivity -> startActivity(Intent(this@MainActivity,PropertyDetailActivity::class.java))
-                MainViewAction.NavigateToPropertyDetailActivity -> TODO()
+                MainViewAction.NavigateToCreatePropertyActivity -> TODO()
+                MainViewAction.NavigateToPropertyDetailActivity -> startActivity(Intent(this@MainActivity,PropertyDetailActivity::class.java))
                 MainViewAction.NavigateToPropertyMapExplorerActivity -> TODO()
                 MainViewAction.NavigateToRealEstateLoanActivity -> TODO()
             }
