@@ -6,7 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.example.realestatemanager.data.model.Estate
+import com.example.realestatemanager.data.model.Property
 import kotlinx.coroutines.flow.Flow
 
 
@@ -14,16 +14,16 @@ import kotlinx.coroutines.flow.Flow
 interface EstateDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertEstate(estate: Estate)
+    suspend fun insertEstate(property: Property)
 
     @Update
-    suspend fun updateEstate(estate: Estate)
+    suspend fun updateEstate(property: Property)
 
 
-    @Query("SELECT * FROM estate WHERE id = :id")
-    fun getEstateById(id:Long) : LiveData<Estate?>
+    @Query("SELECT * FROM property WHERE id = :id")
+    fun getEstateById(id:Long) : LiveData<Property?>
 
-    @Query("SELECT * FROM estate")
-    fun getEstates() : Flow<List<Estate>>
+    @Query("SELECT * FROM property")
+    fun getEstates() : Flow<List<Property>>
 
 }

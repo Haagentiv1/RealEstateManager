@@ -1,23 +1,23 @@
 package com.example.realestatemanager.ui.propertyDetail
 
 import androidx.lifecycle.*
-import com.example.realestatemanager.data.repositories.CurrentEstateIdRepository
-import com.example.realestatemanager.data.repositories.EstateRepository
+import com.example.realestatemanager.data.repositories.CurrentPropertyIdRepository
+import com.example.realestatemanager.data.repositories.PropertyRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
 
 @HiltViewModel
 class PropertyDetailViewModel @Inject constructor(
-    currentEstateIdRepository: CurrentEstateIdRepository,
-    private val estateRepository: EstateRepository
+    currentEstateIdRepository: CurrentPropertyIdRepository,
+    private val propertyRepository: PropertyRepository
 ) : ViewModel() {
 
 
         val detailPropertyLiveData: LiveData<PropertyDetailViewState> =
             currentEstateIdRepository.currentIdLiveData.switchMap { id ->
                 liveData(context = viewModelScope.coroutineContext + Dispatchers.IO) {
-                    val result = estateRepository.getEstateById(id).map { estate ->
+                    val result = propertyRepository.getEstateById(id).map { estate ->
                         PropertyDetailViewState(
                             id = estate!!.id!!,
                             picturesList = estate.pictures!!,

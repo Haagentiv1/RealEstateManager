@@ -7,7 +7,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class CurrentEstateIdRepository @Inject constructor() {
+class CurrentPropertyIdRepository @Inject constructor() {
     private val currentIdMutableLiveData = MutableLiveData<Long>()
     val currentIdLiveData: LiveData<Long> = currentIdMutableLiveData
 

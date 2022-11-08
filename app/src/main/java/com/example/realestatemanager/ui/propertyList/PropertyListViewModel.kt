@@ -5,9 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.realestatemanager.data.model.Estate
-import com.example.realestatemanager.data.repositories.CurrentEstateIdRepository
-import com.example.realestatemanager.data.repositories.EstateRepository
+import com.example.realestatemanager.data.model.Property
+import com.example.realestatemanager.data.repositories.CurrentPropertyIdRepository
+import com.example.realestatemanager.data.repositories.PropertyRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -15,14 +15,14 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PropertyListViewModel @Inject constructor(
-    private val estateRepository: EstateRepository,
-    private val currentEstateIdRepository: CurrentEstateIdRepository
+    private val propertyRepository: PropertyRepository,
+    private val currentEstateIdRepository: CurrentPropertyIdRepository
 ) :
     ViewModel() {
 
 
     val estatesLiveData: LiveData<List<EstateListItemViewState>> =
-        estateRepository.getEstates().map { estates ->
+        propertyRepository.getEstates().map { estates ->
             Log.e("listsize",estates.size.toString())
 
             estates.map {
@@ -40,8 +40,8 @@ class PropertyListViewModel @Inject constructor(
         currentEstateIdRepository.setCurrentId(id)
     }
 
-     fun addEstate(estate: Estate) = viewModelScope.launch {
-        estateRepository.insertEstate(estate)
+     fun addEstate(property: Property) = viewModelScope.launch {
+        propertyRepository.insertEstate(property)
     }
 
 

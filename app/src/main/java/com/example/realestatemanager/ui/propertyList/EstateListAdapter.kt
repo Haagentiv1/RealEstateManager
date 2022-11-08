@@ -6,10 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.RequestManager
-import com.example.realestatemanager.data.model.Estate
 import com.example.realestatemanager.databinding.PropertyItemListFragmentBinding
-import javax.inject.Inject
 
 class EstateListAdapter (
     private val listener: (id: Long) -> Unit
