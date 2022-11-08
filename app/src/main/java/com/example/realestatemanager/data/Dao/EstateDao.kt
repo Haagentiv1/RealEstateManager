@@ -21,7 +21,7 @@ interface EstateDao {
 
 
     @Query("SELECT * FROM estate WHERE id = :id")
-    fun getEstateById(id:Int) : LiveData<Estate?>
+    fun getEstateById(id:Long) : LiveData<Estate?>
 
     @Query("SELECT * FROM estate")
     fun getEstates() : Flow<List<Estate>>
