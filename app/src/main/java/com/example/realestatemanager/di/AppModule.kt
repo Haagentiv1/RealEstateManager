@@ -30,7 +30,7 @@ object AppModule {
             app,
             EstateDatabase::class.java,
             EstateDatabase.DATABASE_NAME
-        ).fallbackToDestructiveMigration()
+        ).createFromAsset("estate_database.db")
             .build()
     }
 
