@@ -8,11 +8,11 @@ import javax.inject.Singleton
 
 @Singleton
 class CurrentEstateIdRepository @Inject constructor() {
-    private val currentIdMutableLiveData = MutableLiveData<Int>()
-    val currentIdLiveData: LiveData<Int> = currentIdMutableLiveData
+    private val currentIdMutableLiveData = MutableLiveData<Long>()
+    val currentIdLiveData: LiveData<Long> = currentIdMutableLiveData
 
     @MainThread
-    fun setCurrentId(currentId: Int) {
+    fun setCurrentId(currentId: Long) {
         currentIdMutableLiveData.value = currentId
     }
 }
