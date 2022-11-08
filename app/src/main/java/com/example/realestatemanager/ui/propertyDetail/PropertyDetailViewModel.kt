@@ -22,13 +22,13 @@ class PropertyDetailViewModel @Inject constructor(
                             id = estate!!.id!!,
                             picturesList = estate.pictures!!,
                             description = estate.description,
-                            surface = estate.surface,
+                            surfaceInSquareMeter = estate.squareMeter,
                             numberOfRooms = estate.numberOfRooms,
                             numberOfBedRooms = estate.numberOfBedRooms,
                             numberOfBathRooms = estate.numberOfBathRooms,
                             address = estate.location[0],
                             town = estate.location[1],
-                            addressNumber = estate.location[2],
+                            state = estate.location[2],
                             zipCode = estate.location[3],
                             country = estate.location[4]
                         )

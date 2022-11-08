@@ -36,7 +36,7 @@ class PropertyListViewModel @Inject constructor(
             }
         }.asLiveData()
 
-    fun onEstateClicked(id: Int) {
+    fun onEstateClicked(id: Long) {
         currentEstateIdRepository.setCurrentId(id)
     }
 

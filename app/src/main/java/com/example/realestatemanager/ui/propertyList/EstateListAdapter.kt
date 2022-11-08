@@ -12,7 +12,7 @@ import com.example.realestatemanager.databinding.PropertyItemListFragmentBinding
 import javax.inject.Inject
 
 class EstateListAdapter (
-    private val listener: (id: Int) -> Unit
+    private val listener: (id: Long) -> Unit
 ) : ListAdapter<EstateListItemViewState, EstateListAdapter.EstateViewHolder>(EstateComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EstateViewHolder =
@@ -30,11 +30,11 @@ class EstateListAdapter (
 
     class EstateViewHolder(private val binding: PropertyItemListFragmentBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: EstateListItemViewState, listener: (id: Int) -> Unit) {
+        fun bind(item: EstateListItemViewState, listener: (id: Long) -> Unit) {
             Glide.with(binding.root).load(item.picture).into(binding.propertyItemTvPropertyPicture)
             binding.propertyItemTvPropertyType.text = item.type
             binding.propertyItemTvPropertyTown.text = item.town
-            binding.propertyItemTvPropertyPrice.text = item.price
+            binding.propertyItemTvPropertyPrice.text = item.price.toString()
             binding.root.setOnClickListener {
                 listener.invoke(item.id)
             }
