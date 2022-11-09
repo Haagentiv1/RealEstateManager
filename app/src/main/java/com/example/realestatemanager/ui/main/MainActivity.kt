@@ -1,22 +1,18 @@
 package com.example.realestatemanager.ui.main
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.AttributeSet
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.example.realestatemanager.ConnectivityObserver
 import com.example.realestatemanager.R
 import com.example.realestatemanager.databinding.MainActivityBinding
 import com.example.realestatemanager.ui.propertyDetail.PropertyDetailActivity
 import com.example.realestatemanager.ui.propertyDetail.PropertyDetailFragment
 import com.example.realestatemanager.ui.propertyList.PropertyListFragment
-import com.google.android.material.appbar.MaterialToolbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -25,7 +21,6 @@ class MainActivity : AppCompatActivity() {
     private val viewModel by viewModels<MainViewModel>()
     private var _binding: MainActivityBinding? = null
     private val binding get() = _binding!!
-    lateinit var materialToolbar: MaterialToolbar
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,7 +50,7 @@ class MainActivity : AppCompatActivity() {
             when (it) {
                 MainViewAction.NavigateToCreatePropertyActivity -> TODO()
                 MainViewAction.NavigateToPropertyDetailActivity -> startActivity(Intent(this@MainActivity,PropertyDetailActivity::class.java))
-                MainViewAction.NavigateToPropertyMapExplorerActivity -> TODO()
+                MainViewAction.NavigateToPropertyMapExplorerActivity -> startActivity(Intent(this@MainActivity,PropertyDetailActivity::class.java))
                 MainViewAction.NavigateToRealEstateLoanActivity -> TODO()
             }
         }
@@ -64,12 +59,21 @@ class MainActivity : AppCompatActivity() {
 
 
 
+
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
       super.onOptionsItemSelected(item)
         when(item.itemId){
             R.id.menu_item_add -> {
-                Log.e("itemSelect","test")
-                viewModel.state.postValue("test")
+                viewModel.networkStatus.observe(this){
+                    when(it){
+                        ConnectivityObserver.Status.Available -> Toast.makeText(this,"Network Available",Toast.LENGTH_LONG).show()
+                        ConnectivityObserver.Status.Unavailable -> Toast.makeText(this,"Network Unavailable",Toast.LENGTH_LONG).show()
+                        else -> {
+                            Toast.makeText(this,"No signal",Toast.LENGTH_LONG).show()
+                        }
+                    }
+                }
             }
         }
         return false

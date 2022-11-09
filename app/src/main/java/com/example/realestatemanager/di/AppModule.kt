@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import androidx.room.Room
 import com.bumptech.glide.Glide
+import com.example.realestatemanager.NetworkConnectivityObserver
 import com.example.realestatemanager.data.local.db.PropertyDatabase
 import com.example.realestatemanager.data.local.repositories.PropertyRepository
 import com.example.realestatemanager.data.local.repositories.PropertyRepositoryImpl
@@ -39,6 +40,12 @@ object AppModule {
     @Provides
     fun providePropertyRepository(db: PropertyDatabase) : PropertyRepository {
         return PropertyRepositoryImpl(db.propertyDao)
+    }
+
+    @Singleton
+    @Provides
+    fun provideNetworkConnectivityObserver(@ApplicationContext context: Context) : NetworkConnectivityObserver{
+        return NetworkConnectivityObserver(context)
     }
 
 
