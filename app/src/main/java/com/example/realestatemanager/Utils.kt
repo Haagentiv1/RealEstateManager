@@ -5,11 +5,15 @@ import android.net.wifi.WifiManager
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.roundToInt
 
 /**
  * Created by Philippe on 21/02/2018.
  */
 object Utils {
+
+    const val EURO_MULTIPLIER : Double = 1.0
+    const val DOLLAR_MULTIPLIER : Double = 1.0
     /**
      * Conversion d'un prix d'un bien immobilier (Dollars vers Euros)
      * NOTE : NE PAS SUPPRIMER, A MONTRER DURANT LA SOUTENANCE
@@ -17,7 +21,11 @@ object Utils {
      * @return
      */
     fun convertDollarToEuro(dollars: Int): Int {
-        return Math.round(dollars * 0.812).toInt()
+        return (dollars * EURO_MULTIPLIER).roundToInt()
+    }
+
+    fun convertEuroToDollar(euros : Int) : Int {
+        return (euros * DOLLAR_MULTIPLIER).roundToInt()
     }
 
     /**
@@ -27,8 +35,8 @@ object Utils {
      */
     val todayDate: String
         get() {
-            val dateFormat: DateFormat = SimpleDateFormat("yyyy/MM/dd")
-            return DateFormat.getDateInstance().toString()
+            val dateFormat: DateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.US)
+            return dateFormat.format(Date())
         }
 
     /**
@@ -41,4 +49,6 @@ object Utils {
         val wifi = context.getSystemService(Context.WIFI_SERVICE) as WifiManager
         return wifi.isWifiEnabled
     }
+
+
 }
