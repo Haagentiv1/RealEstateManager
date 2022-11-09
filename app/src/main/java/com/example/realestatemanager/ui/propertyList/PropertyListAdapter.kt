@@ -10,7 +10,7 @@ import com.example.realestatemanager.databinding.PropertyItemListFragmentBinding
 
 class PropertyListAdapter (
     private val listener: (id: Long) -> Unit
-) : ListAdapter<PropertyListItemViewState, PropertyListAdapter.EstateViewHolder>(EstateComparator()) {
+) : ListAdapter<PropertyListItemViewState, PropertyListAdapter.EstateViewHolder>(PropertyComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EstateViewHolder =
         EstateViewHolder(
@@ -38,7 +38,7 @@ class PropertyListAdapter (
         }
     }
 
-    class EstateComparator : DiffUtil.ItemCallback<PropertyListItemViewState>() {
+    class PropertyComparator : DiffUtil.ItemCallback<PropertyListItemViewState>() {
         override fun areContentsTheSame(oldItem: PropertyListItemViewState, newItem: PropertyListItemViewState): Boolean =
             oldItem.id == newItem.id
 
