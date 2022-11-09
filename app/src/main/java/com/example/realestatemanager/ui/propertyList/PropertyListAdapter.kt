@@ -28,7 +28,7 @@ class PropertyListAdapter (
     class EstateViewHolder(private val binding: PropertyItemListFragmentBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: PropertyListItemViewState, listener: (id: Long) -> Unit) {
-            Glide.with(binding.root).load(item.picture).into(binding.propertyItemTvPropertyPicture)
+            Glide.with(binding.root).load(item.picture).centerCrop().into(binding.propertyItemTvPropertyPicture)
             binding.propertyItemTvPropertyType.text = item.type
             binding.propertyItemTvPropertyTown.text = item.town
             binding.propertyItemTvPropertyPrice.text = item.price.toString()
