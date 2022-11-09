@@ -1,6 +1,5 @@
 package com.example.realestatemanager.ui.propertyList
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
@@ -16,16 +15,14 @@ import javax.inject.Inject
 @HiltViewModel
 class PropertyListViewModel @Inject constructor(
     private val propertyRepository: PropertyRepository,
-    private val currentEstateIdRepository: CurrentPropertyIdRepository
+    private val currentPropertyIdRepository: CurrentPropertyIdRepository
 ) :
     ViewModel() {
 
 
-    val estatesLiveData: LiveData<List<PropertyListItemViewState>> =
-        propertyRepository.getProperties().map { estates ->
-            Log.e("listsize",estates.size.toString())
-
-            estates.map {
+    val propertyLiveData: LiveData<List<PropertyListItemViewState>> =
+        propertyRepository.getProperties().map { properties ->
+            properties.map {
                 PropertyListItemViewState(
                     it.id!!,
                     it.pictures!![0],
@@ -36,11 +33,11 @@ class PropertyListViewModel @Inject constructor(
             }
         }.asLiveData()
 
-    fun onEstateClicked(id: Long) {
-        currentEstateIdRepository.setCurrentId(id)
+    fun onPropertyClicked(id: Long) {
+        currentPropertyIdRepository.setCurrentId(id)
     }
 
-     fun addEstate(property: Property) = viewModelScope.launch {
+     fun addProperty(property: Property) = viewModelScope.launch {
         propertyRepository.insertProperty(property)
     }
 

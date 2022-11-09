@@ -32,14 +32,19 @@ class PropertyListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val recyclerView: RecyclerView = binding.root
         val adapter = PropertyListAdapter {
-            viewModel.onEstateClicked(it)
+            viewModel.onPropertyClicked(it)
         }
 
         recyclerView.adapter = adapter
-        viewModel.estatesLiveData.observe(viewLifecycleOwner) {
+        viewModel.propertyLiveData.observe(viewLifecycleOwner) {
             adapter.submitList(it)
         }
     }
+
+
+
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()

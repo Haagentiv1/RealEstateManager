@@ -1,6 +1,7 @@
 package com.example.realestatemanager.ui.propertyDetail
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,13 +31,14 @@ class PropertyDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.detailPropertyLiveData.observe(viewLifecycleOwner){
+            Log.e("testpicturesize",it.picturesList.size.toString())
             binding.propertyDetailTvDescription.text = it.description
-            binding.propertyDetailTvSquareMeterData.text = it.surface.toString()
+            binding.propertyDetailTvSquareMeterData.text = it.surfaceInSquareMeter.toString()
             binding.propertyDetailNumberOfRoomsData.text = it.numberOfRooms.toString()
             binding.propertyDetailNumberOfBedRoomsData.text = it.numberOfBedRooms.toString()
             binding.propertyDetailNumberOfBathRoomsData.text = it.numberOfBathRooms.toString()
             binding.propertyDetailAddress.text = it.address
-            binding.propertyDetailFlatNumber.text = it.addressNumber
+            binding.propertyDetailFlatNumber.text = it.state
             binding.propertyDetailTown.text = it.town
             binding.propertyDetailZipcode.text = it.zipCode
             binding.propertyDetailCountry.text = it.country
