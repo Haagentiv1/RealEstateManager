@@ -22,7 +22,7 @@ class PropertyListViewModel @Inject constructor(
 
 
     val estatesLiveData: LiveData<List<PropertyListItemViewState>> =
-        propertyRepository.getEstates().map { estates ->
+        propertyRepository.getProperties().map { estates ->
             Log.e("listsize",estates.size.toString())
 
             estates.map {
@@ -41,7 +41,7 @@ class PropertyListViewModel @Inject constructor(
     }
 
      fun addEstate(property: Property) = viewModelScope.launch {
-        propertyRepository.insertEstate(property)
+        propertyRepository.insertProperty(property)
     }
 
 

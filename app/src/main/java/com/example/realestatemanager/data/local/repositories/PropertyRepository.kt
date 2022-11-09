@@ -7,11 +7,11 @@ import kotlinx.coroutines.flow.Flow
 
 interface PropertyRepository {
 
-    fun getEstates(): Flow<List<Property>>
+    fun getProperties(): Flow<List<Property>>
 
-    suspend fun getEstateById(id: Long): LiveData<Property?>
+    suspend fun getPropertyById(id: Long): LiveData<Property?>
 
-    suspend fun insertEstate(property: Property)
+    suspend fun insertProperty(property: Property)
 
 
 }
