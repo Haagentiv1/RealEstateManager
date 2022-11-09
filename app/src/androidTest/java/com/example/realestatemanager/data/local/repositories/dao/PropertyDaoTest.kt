@@ -6,7 +6,7 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import app.cash.turbine.test
-import com.example.realestatemanager.data.local.dao.EstateDao
+import com.example.realestatemanager.data.local.dao.PropertyDao
 import com.example.realestatemanager.data.local.db.EstateDatabase
 import com.example.realestatemanager.data.local.model.Property
 import com.example.realestatemanager.getOrAwaitValue
@@ -29,7 +29,7 @@ class PropertyDaoTest {
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     private lateinit var database: EstateDatabase
-    private lateinit var dao: EstateDao
+    private lateinit var dao: PropertyDao
 
     @Before
     fun setup() {
@@ -39,7 +39,7 @@ class PropertyDaoTest {
         ).allowMainThreadQueries()
             .build()
 
-        dao = database.estateDao
+        dao = database.propertyDao
     }
 
 

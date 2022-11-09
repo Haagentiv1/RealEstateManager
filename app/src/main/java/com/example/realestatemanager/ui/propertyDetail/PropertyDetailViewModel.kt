@@ -1,8 +1,8 @@
 package com.example.realestatemanager.ui.propertyDetail
 
 import androidx.lifecycle.*
-import com.example.realestatemanager.data.repositories.CurrentPropertyIdRepository
-import com.example.realestatemanager.data.repositories.PropertyRepository
+import com.example.realestatemanager.data.local.repositories.CurrentPropertyIdRepository
+import com.example.realestatemanager.data.local.repositories.PropertyRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject

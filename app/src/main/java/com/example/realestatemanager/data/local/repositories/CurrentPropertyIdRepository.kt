@@ -1,4 +1,4 @@
-package com.example.realestatemanager.data.repositories
+package com.example.realestatemanager.data.local.repositories
 
 import androidx.annotation.MainThread
 import androidx.lifecycle.LiveData

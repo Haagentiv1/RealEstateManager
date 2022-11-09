@@ -1,6 +1,6 @@
 package com.example.realestatemanager.ui.propertyList
 
-class EstateListItemViewState (
+class PropertyListItemViewState (
     val id: Long,
     val picture : String,
     val price : Long,

@@ -1,7 +1,7 @@
-package com.example.realestatemanager.data.repositories
+package com.example.realestatemanager.data.local.repositories
 
 import androidx.lifecycle.LiveData
-import com.example.realestatemanager.data.model.Property
+import com.example.realestatemanager.data.local.model.Property
 import kotlinx.coroutines.flow.Flow
 
 

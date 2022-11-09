@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.realestatemanager.databinding.PropertyItemListFragmentBinding
 
-class EstateListAdapter (
+class PropertyListAdapter (
     private val listener: (id: Long) -> Unit
-) : ListAdapter<EstateListItemViewState, EstateListAdapter.EstateViewHolder>(EstateComparator()) {
+) : ListAdapter<PropertyListItemViewState, PropertyListAdapter.EstateViewHolder>(EstateComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EstateViewHolder =
         EstateViewHolder(
@@ -27,7 +27,7 @@ class EstateListAdapter (
 
     class EstateViewHolder(private val binding: PropertyItemListFragmentBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: EstateListItemViewState, listener: (id: Long) -> Unit) {
+        fun bind(item: PropertyListItemViewState, listener: (id: Long) -> Unit) {
             Glide.with(binding.root).load(item.picture).into(binding.propertyItemTvPropertyPicture)
             binding.propertyItemTvPropertyType.text = item.type
             binding.propertyItemTvPropertyTown.text = item.town
@@ -38,11 +38,11 @@ class EstateListAdapter (
         }
     }
 
-    class EstateComparator : DiffUtil.ItemCallback<EstateListItemViewState>() {
-        override fun areContentsTheSame(oldItem: EstateListItemViewState, newItem: EstateListItemViewState): Boolean =
+    class EstateComparator : DiffUtil.ItemCallback<PropertyListItemViewState>() {
+        override fun areContentsTheSame(oldItem: PropertyListItemViewState, newItem: PropertyListItemViewState): Boolean =
             oldItem.id == newItem.id
 
-        override fun areItemsTheSame(oldItem: EstateListItemViewState, newItem: EstateListItemViewState): Boolean = oldItem == newItem
+        override fun areItemsTheSame(oldItem: PropertyListItemViewState, newItem: PropertyListItemViewState): Boolean = oldItem == newItem
 
     }
 

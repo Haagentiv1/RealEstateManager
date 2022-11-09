@@ -31,7 +31,7 @@ class PropertyListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val recyclerView: RecyclerView = binding.root
-        val adapter = EstateListAdapter {
+        val adapter = PropertyListAdapter {
             viewModel.onEstateClicked(it)
         }
 

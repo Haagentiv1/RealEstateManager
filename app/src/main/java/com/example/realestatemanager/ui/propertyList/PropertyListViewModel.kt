@@ -5,9 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.realestatemanager.data.model.Property
-import com.example.realestatemanager.data.repositories.CurrentPropertyIdRepository
-import com.example.realestatemanager.data.repositories.PropertyRepository
+import com.example.realestatemanager.data.local.model.Property
+import com.example.realestatemanager.data.local.repositories.CurrentPropertyIdRepository
+import com.example.realestatemanager.data.local.repositories.PropertyRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -21,12 +21,12 @@ class PropertyListViewModel @Inject constructor(
     ViewModel() {
 
 
-    val estatesLiveData: LiveData<List<EstateListItemViewState>> =
+    val estatesLiveData: LiveData<List<PropertyListItemViewState>> =
         propertyRepository.getEstates().map { estates ->
             Log.e("listsize",estates.size.toString())
 
             estates.map {
-                EstateListItemViewState(
+                PropertyListItemViewState(
                     it.id!!,
                     it.pictures!![0],
                     it.price,

@@ -1,4 +1,4 @@
-package com.example.realestatemanager.data.model
+package com.example.realestatemanager.data.local.model
 
 
 import androidx.room.ColumnInfo
@@ -8,8 +8,8 @@ import kotlinx.serialization.Serializable
 
 
 @Serializable
-@Entity(tableName = "estate")
-data class Estate(
+@Entity(tableName = "property")
+data class Property(
     @PrimaryKey(autoGenerate = true) val id: Long?,
     @ColumnInfo(name = "type") val type: String,
     @ColumnInfo(name = "description") val description: String,
@@ -23,7 +23,7 @@ data class Estate(
     @ColumnInfo(name = "poi") val poi: List<String>?,
     @ColumnInfo(name = "status") val status: Boolean,
     @ColumnInfo(name ="entry_date") val entryDate: String,
-    @ColumnInfo(name = "saleDate") val saleDate: String?,
+    @ColumnInfo(name = "saleDate") var saleDate: String?,
     @ColumnInfo(name = "estateManagerName") val estateManagerName: String
 
 )
