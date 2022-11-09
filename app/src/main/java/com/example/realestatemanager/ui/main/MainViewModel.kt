@@ -2,7 +2,7 @@ package com.example.realestatemanager.ui.main
 
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
-import com.example.realestatemanager.data.repositories.CurrentPropertyIdRepository
+import com.example.realestatemanager.data.local.repositories.CurrentPropertyIdRepository
 import com.example.realestatemanager.ui.utils.SingleLiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

@@ -4,9 +4,9 @@ import android.app.Application
 import android.content.Context
 import androidx.room.Room
 import com.bumptech.glide.Glide
-import com.example.realestatemanager.data.db.EstateDatabase
-import com.example.realestatemanager.data.repositories.EstateRepository
-import com.example.realestatemanager.data.repositories.EstateRepositoryImpl
+import com.example.realestatemanager.data.local.db.EstateDatabase
+import com.example.realestatemanager.data.local.repositories.PropertyRepository
+import com.example.realestatemanager.data.local.repositories.PropertyRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,19 +26,19 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideEstateDatabase(app: Application) : EstateDatabase{
+    fun provideEstateDatabase(app: Application) : EstateDatabase {
         return Room.databaseBuilder(
             app,
             EstateDatabase::class.java,
             EstateDatabase.DATABASE_NAME
-        ).createFromAsset("estate_database.db")
+        ).createFromAsset("property_database.db")
             .build()
     }
 
     @Singleton
     @Provides
-    fun provideEstateRepository(db: EstateDatabase) : EstateRepository{
-        return EstateRepositoryImpl(db.estateDao)
+    fun provideEstateRepository(db: EstateDatabase) : PropertyRepository {
+        return PropertyRepositoryImpl(db.propertyDao)
     }
 
 
