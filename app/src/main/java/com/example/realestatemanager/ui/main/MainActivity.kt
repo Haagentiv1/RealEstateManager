@@ -13,6 +13,8 @@ import com.example.realestatemanager.databinding.MainActivityBinding
 import com.example.realestatemanager.ui.propertyDetail.PropertyDetailActivity
 import com.example.realestatemanager.ui.propertyDetail.PropertyDetailFragment
 import com.example.realestatemanager.ui.propertyList.PropertyListFragment
+import com.example.realestatemanager.ui.realEstateLoan.LoanActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,6 +23,7 @@ class MainActivity : AppCompatActivity() {
     private val viewModel by viewModels<MainViewModel>()
     private var _binding: MainActivityBinding? = null
     private val binding get() = _binding!!
+    private lateinit var bottomNavigationView : BottomNavigationView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,6 +31,7 @@ class MainActivity : AppCompatActivity() {
         _binding = MainActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.appBarMain.topAppBar)
+        bottomNavigationView = binding.bottomAppBar.bottomNavView
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .replace(binding.mainFlContainerPropertyList.id, PropertyListFragment())
@@ -46,6 +50,18 @@ class MainActivity : AppCompatActivity() {
                 .commitNow()
         }
 
+        bottomNavigationView.setOnItemSelectedListener {
+            when(it.itemId){
+                R.id.menu_nav_loan -> {
+                    startActivity(Intent(this@MainActivity,LoanActivity::class.java))
+                    false
+                }
+                R.id.menu_nav_map -> TODO()
+                else -> false
+            }
+        }
+
+
         viewModel.navigateSingleLiveEvent.observe(this) {
             when (it) {
                 MainViewAction.NavigateToCreatePropertyActivity -> TODO()
@@ -56,6 +72,7 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
 
 
 

@@ -29,6 +29,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.propertyDetail.PropertyDetailActivity"/>
+        <activity android:name=".ui.realEstateLoan.LoanActivity"/>
     </application>
 
 </manifest>

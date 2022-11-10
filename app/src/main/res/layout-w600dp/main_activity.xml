@@ -12,7 +12,7 @@
         android:id="@+id/main_fl_container_property_list"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottom_app_bar_container"
         app:layout_constraintTop_toBottomOf="@id/app_bar_main"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/main_gl_list"/>
@@ -28,10 +28,24 @@
         android:id="@+id/main_fl_container_property_detail"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottom_app_bar_container"
         app:layout_constraintTop_toBottomOf="@id/app_bar_main"
         app:layout_constraintStart_toStartOf="@id/main_gl_list"
         app:layout_constraintEnd_toEndOf="parent"
         />
+
+    <RelativeLayout
+        android:id="@+id/bottom_app_bar_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:elevation="20dp">
+        <include
+            android:id="@+id/bottom_app_bar"
+            layout="@layout/bottom_nav"
+            />
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
