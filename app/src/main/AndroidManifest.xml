@@ -30,6 +30,7 @@
         </activity>
         <activity android:name=".ui.propertyDetail.PropertyDetailActivity"/>
         <activity android:name=".ui.realEstateLoan.LoanActivity"/>
+        <activity android:name=".ui.propertyMap.MapActivity"/>
     </application>
 
 </manifest>
