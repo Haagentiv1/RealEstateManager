@@ -1,5 +1,5 @@
 package com.example
-import com.example.realestatemanager.Utils
+import com.example.realestatemanager.ui.utils.Utils
 import com.google.common.truth.Truth.assertThat
 
 import org.junit.Test

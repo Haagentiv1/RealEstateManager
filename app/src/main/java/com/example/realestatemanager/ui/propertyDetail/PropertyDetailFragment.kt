@@ -8,16 +8,18 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.realestatemanager.databinding.PropertyDetailFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class PropertyDetailFragment : Fragment() {
 
     private var _binding : PropertyDetailFragmentBinding? = null
     private val binding get() = _binding!!
-
     private val viewModel by viewModels<PropertyDetailViewModel>()
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,6 +48,7 @@ class PropertyDetailFragment : Fragment() {
             binding.propertyDetailTown.text = it.town
             binding.propertyDetailZipcode.text = it.zipCode
             binding.propertyDetailCountry.text = it.country
+            Glide.with(this).load(it.mapStaticString).into(binding.propertyDetailMapStaticContainerIv)
             adapter.submitList(it.picturesList)
         }
     }

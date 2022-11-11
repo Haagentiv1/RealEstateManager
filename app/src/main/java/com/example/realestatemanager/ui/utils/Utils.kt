@@ -1,4 +1,4 @@
-package com.example.realestatemanager
+package com.example.realestatemanager.ui.utils
 
 import android.content.Context
 import android.net.wifi.WifiManager

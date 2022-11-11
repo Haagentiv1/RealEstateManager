@@ -31,6 +31,11 @@
         <activity android:name=".ui.propertyDetail.PropertyDetailActivity"/>
         <activity android:name=".ui.realEstateLoan.LoanActivity"/>
         <activity android:name=".ui.propertyMap.MapActivity"/>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="${STATIC_MAP_API_KEY}" />
     </application>
+
+
 
 </manifest>

@@ -12,5 +12,6 @@ data class PropertyDetailViewState(
     val town : String,
     val state : String,
     val zipCode :String,
-    val country : String
+    val country : String,
+    val mapStaticString : String
 )
