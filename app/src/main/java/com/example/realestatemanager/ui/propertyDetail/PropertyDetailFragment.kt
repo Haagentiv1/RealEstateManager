@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.realestatemanager.R
 import com.example.realestatemanager.databinding.PropertyDetailFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -48,7 +49,7 @@ class PropertyDetailFragment : Fragment() {
             binding.propertyDetailTown.text = it.town
             binding.propertyDetailZipcode.text = it.zipCode
             binding.propertyDetailCountry.text = it.country
-            Glide.with(this).load(it.mapStaticString).into(binding.propertyDetailMapStaticContainerIv)
+            Glide.with(this).load(it.mapStaticString).error(R.drawable.ic_image_not_loaded_24).into(binding.propertyDetailMapStaticContainerIv)
             adapter.submitList(it.picturesList)
         }
     }
