@@ -5,8 +5,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.example.realestatemanager.databinding.PropertyDetailFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,6 +36,7 @@ class PropertyDetailFragment : Fragment() {
         val recyclerView : RecyclerView = binding.propertyDetailPictureRv
         val adapter = PictureAdapter()
         recyclerView.adapter = adapter
+        recyclerView.addItemDecoration(DividerItemDecoration(context,LinearLayout.HORIZONTAL))
         viewModel.detailPropertyLiveData.observe(viewLifecycleOwner){
             Log.e("testpicturesize",it.picturesList.size.toString())
             binding.propertyDetailTvDescription.text = it.description
