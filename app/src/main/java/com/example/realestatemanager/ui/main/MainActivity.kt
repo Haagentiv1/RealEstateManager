@@ -2,8 +2,7 @@ package com.example.realestatemanager.ui.main
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -77,6 +76,7 @@ class MainActivity : AppCompatActivity() {
         }
 
 
+
         viewModel.navigateSingleLiveEvent.observe(this) {
             when (it) {
                 MainViewAction.NavigateToCreatePropertyActivity -> TODO()
@@ -93,45 +93,56 @@ class MainActivity : AppCompatActivity() {
                 MainViewAction.NavigateToRealEstateLoanActivity -> TODO()
             }
         }
-
-    }
-
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        super.onOptionsItemSelected(item)
-        when (item.itemId) {
-            R.id.menu_item_add -> {
-                viewModel.networkStatus.observe(this) {
-                    when (it) {
-                        ConnectivityObserver.Status.Available -> Toast.makeText(
-                            this, "Network Available", Toast.LENGTH_LONG
-                        ).show()
-                        ConnectivityObserver.Status.Unavailable -> Toast.makeText(
-                            this, "Network Unavailable", Toast.LENGTH_LONG
-                        ).show()
-                        else -> {
-                            Toast.makeText(this, "No signal", Toast.LENGTH_LONG).show()
-                        }
-                    }
+        binding.appBarMain.topAppBar.setOnMenuItemClickListener { menuItem ->
+            when(menuItem.itemId){
+                R.id.menu_item_filter -> {
+                    Log.e("main","click")
+                    true
+                }else ->{
+                Log.e("main","esle")
+                    true
                 }
-                return true
             }
         }
-        return false
 
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        super.onCreateOptionsMenu(menu)
-        menuInflater.inflate(R.menu.top_app_bar_menu, menu)
-        if (binding.mainFlContainerPropertyDetail == null) {
-            val menuItemToHide = menu?.findItem(R.id.menu_item_edit)
-            menuItemToHide?.isVisible = false
-            invalidateMenu()
-            return true
-        }
-        return true
-    }
+
+  // override fun onOptionsItemSelected(item: MenuItem): Boolean {
+  //     super.onOptionsItemSelected(item)
+  //     when (item.itemId) {
+  //         R.id.menu_item_add -> {
+  //             viewModel.networkStatus.observe(this) {
+  //                 when (it) {
+  //                     ConnectivityObserver.Status.Available -> Toast.makeText(
+  //                         this, "Network Available", Toast.LENGTH_LONG
+  //                     ).show()
+  //                     ConnectivityObserver.Status.Unavailable -> Toast.makeText(
+  //                         this, "Network Unavailable", Toast.LENGTH_LONG
+  //                     ).show()
+  //                     else -> {
+  //                         Toast.makeText(this, "No signal", Toast.LENGTH_LONG).show()
+  //                     }
+  //                 }
+  //             }
+  //             return true
+  //         }
+  //     }
+  //     return false
+  //
+  // }
+
+   // override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+   //     super.onCreateOptionsMenu(menu)
+   //     menuInflater.inflate(R.menu.top_app_bar_menu, menu)
+   //     if (binding.mainFlContainerPropertyDetail == null) {
+   //         val menuItemToHide = menu?.findItem(R.id.menu_item_edit)
+   //         menuItemToHide?.isVisible = false
+   //         invalidateMenu()
+   //         return true
+   //     }
+   //     return true
+   // }
 
 
     override fun onResume() {
