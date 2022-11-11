@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.RecyclerView
 import com.example.realestatemanager.databinding.PropertyDetailFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -30,6 +31,9 @@ class PropertyDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val recyclerView : RecyclerView = binding.propertyDetailPictureRv
+        val adapter = PictureAdapter()
+        recyclerView.adapter = adapter
         viewModel.detailPropertyLiveData.observe(viewLifecycleOwner){
             Log.e("testpicturesize",it.picturesList.size.toString())
             binding.propertyDetailTvDescription.text = it.description
@@ -42,6 +46,7 @@ class PropertyDetailFragment : Fragment() {
             binding.propertyDetailTown.text = it.town
             binding.propertyDetailZipcode.text = it.zipCode
             binding.propertyDetailCountry.text = it.country
+            adapter.submitList(it.picturesList)
         }
     }
 
