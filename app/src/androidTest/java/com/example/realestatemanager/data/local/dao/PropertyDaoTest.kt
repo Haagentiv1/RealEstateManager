@@ -1,4 +1,4 @@
-package com.example.realestatemanager.data.local.repositories.dao
+package com.example.realestatemanager.data.local.dao
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
