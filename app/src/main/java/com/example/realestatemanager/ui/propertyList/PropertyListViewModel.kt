@@ -1,5 +1,6 @@
 package com.example.realestatemanager.ui.propertyList
 
+import android.app.AlertDialog
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
@@ -8,6 +9,7 @@ import com.example.realestatemanager.data.local.model.Property
 import com.example.realestatemanager.data.local.repositories.CurrentPropertyIdRepository
 import com.example.realestatemanager.data.local.repositories.PropertyRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -21,7 +23,8 @@ class PropertyListViewModel @Inject constructor(
 
 
     val propertyLiveData: LiveData<List<PropertyListItemViewState>> =
-        propertyRepository.getProperties().map { properties ->
+        propertyRepository.getProperties()
+            .map { properties ->
             properties.map {
                 PropertyListItemViewState(
                     it.id!!,
@@ -33,6 +36,9 @@ class PropertyListViewModel @Inject constructor(
             }
         }.asLiveData()
 
+
+
+
     fun onPropertyClicked(id: Long) {
         currentPropertyIdRepository.setCurrentId(id)
     }
@@ -40,6 +46,8 @@ class PropertyListViewModel @Inject constructor(
      fun addProperty(property: Property) = viewModelScope.launch {
         propertyRepository.insertProperty(property)
     }
+
+
 
 
 }

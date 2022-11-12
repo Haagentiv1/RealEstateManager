@@ -1,5 +1,7 @@
 package com.example.realestatemanager.ui.propertyList
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -47,37 +49,83 @@ class PropertyListFragment : Fragment() {
         val toolbar = requireActivity().findViewById<MaterialToolbar>(R.id.topAppBar)
 
         val menuHost: MenuHost = requireActivity()
-        menuHost.addMenuProvider(object : MenuProvider{
+        menuHost.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                menuInflater.inflate(R.menu.top_app_bar_menu,menu)
+                menuInflater.inflate(R.menu.top_app_bar_menu, menu)
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-               return true
+                return true
             }
-        }, viewLifecycleOwner,Lifecycle.State.RESUMED)
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
         toolbar.setOnMenuItemClickListener { menuItem ->
-            when(menuItem.itemId){
+            when (menuItem.itemId) {
                 R.id.menu_item_filter -> {
-                    Log.e("list","click")
-                    if (binding.fragmentListRlContainer.visibility == View.GONE){
+                    Log.e("list", "click")
+                    if (binding.fragmentListRlContainer.visibility == View.GONE) {
                         binding.fragmentListRlContainer.visibility = View.VISIBLE
-                    }else {
+                    } else {
                         binding.fragmentListRlContainer.visibility = View.GONE
                     }
                     true
 
-                }else ->{
-                Log.e("list","esle")
-                true
-            }
+                }
+                else -> {
+                    Log.e("list", "esle")
+                    true
+                }
             }
 
+        }
+        binding.filterRsPrice.setValues(1f, 1000000f)
+        binding.filterRsSurface.setValues(0f,1000f)
+        binding.listFilterTvTypeSelectionDialog.setOnClickListener { setTypeDialog() }
+
+        binding.filterBtnFilterList.setOnClickListener {
+            var type = binding.listFilterTvTypeSelectionDialog.text
+            var price = binding.filterRsPrice.values
+            var surface = binding.filterRsSurface.values
+            var poi = binding.listFilterTvPoiSelectionDialog.text
+            var test = listOf(type,price,surface,poi)
+            Log.e("test",test.toString())
         }
 
     }
 
+    fun setTypeDialog() {
+        val types = arrayOf("LOFT", "PENTHOUSE", "MANOR", "DUPLEX")
+        val typesSelected = booleanArrayOf(false,false,false,false)
+        val typesChecked = mutableListOf<String>()
+        val builder = AlertDialog.Builder(context)
+            .setTitle("Choose Type")
+            .setCancelable(false)
+
+
+        builder.setMultiChoiceItems(
+            types,
+            typesSelected
+        ) { dialogInterface, index, check ->
+            if (check) {
+                typesChecked.add(types[index])
+            }
+
+            binding.listFilterTvTypeSelectionDialog.text = typesChecked.toString()
+        }
+
+        builder.setPositiveButton("Ok"){dialog, which ->
+            dialog.dismiss()
+        }
+        builder.setNegativeButton("Reset"){dialog, which ->
+            dialog.cancel()
+        }
+
+
+
+        builder.create()
+        builder.show()
+
+    }
 
 
     override fun onDestroyView() {

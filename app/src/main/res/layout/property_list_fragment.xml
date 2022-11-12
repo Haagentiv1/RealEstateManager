@@ -6,17 +6,69 @@
     android:layout_height="match_parent"
     android:animateLayoutChanges="true">
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/fragment_list_rl_container"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:visibility="visible">
 
+        <TextView
+            android:id="@+id/list_filter_tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
 
-    </RelativeLayout>
+            android:text="Filter"
+            />
+
+        <TextView
+            android:id="@+id/list_filter_tv_type_selection_dialog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="Select Type"/>
+
+        <com.google.android.material.slider.RangeSlider
+            android:id="@+id/filter_rs_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:minSeparation="10dp"
+            android:valueFrom="0"
+            android:valueTo="10000000"/>
+
+        <com.google.android.material.slider.RangeSlider
+            android:id="@+id/filter_rs_surface"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:minSeparation="10dp"
+            android:valueFrom="0"
+            android:valueTo="1000"/>
+
+        <TextView
+            android:id="@+id/list_filter_tv_poi_selection_dialog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="Select Poi"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_marginTop="10dp"
+            android:id="@+id/filter_btn_filter_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="filter"
+            android:layout_marginBottom="20dp" />
+
+
+
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/property_list_fragment_rv"
