@@ -1,7 +1,6 @@
 package com.example.realestatemanager.ui.propertyList
 
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -41,10 +40,12 @@ class PropertyListFragment : Fragment() {
             viewModel.onPropertyClicked(it)
         }
 
+
         recyclerView.adapter = adapter
-        viewModel.propertyLiveData.observe(viewLifecycleOwner) {
+        viewModel.propertyList.observe(viewLifecycleOwner) {
             adapter.submitList(it)
         }
+        viewModel.setFilterBoolean(false)
 
         val toolbar = requireActivity().findViewById<MaterialToolbar>(R.id.topAppBar)
 
@@ -89,12 +90,17 @@ class PropertyListFragment : Fragment() {
             var poi = binding.listFilterTvPoiSelectionDialog.text
             var test = listOf(type,price,surface,poi)
             Log.e("test",test.toString())
+
+        viewModel.selectFilter(type,price,surface,poi)
+
+
+        viewModel.setFilterBoolean(true)
         }
 
     }
 
     fun setTypeDialog() {
-        val types = arrayOf("LOFT", "PENTHOUSE", "MANOR", "DUPLEX")
+        val types = arrayOf("Loft", "Penthouse", "Manor", "Duplex")
         val typesSelected = booleanArrayOf(false,false,false,false)
         val typesChecked = mutableListOf<String>()
         val builder = AlertDialog.Builder(context)
