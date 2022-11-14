@@ -27,18 +27,8 @@ class PropertyListViewModel @Inject constructor(
 
     private val filterLiveData = MutableLiveData<Boolean>()
 
-    var propertyList = MediatorLiveData<List<PropertyListItemViewState>>()
 
-    init {
-        filterLiveData.value = false
-        propertyList.addSource(filterLiveData) {
-            if (it) {
-                propertyList.value = propertyLiveDataFiltered.value
-            } else {
-                propertyList.value = propertyLiveData.value
-            }
-        }
-    }
+
 
     fun setFilterBoolean(filter : Boolean){
         filterLiveData.value = filter
