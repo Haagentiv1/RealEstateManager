@@ -4,15 +4,10 @@ import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import androidx.core.view.MenuHost
-import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.RecyclerView
-import com.example.realestatemanager.R
 import com.example.realestatemanager.databinding.PropertyListFragmentBinding
-import com.google.android.material.appbar.MaterialToolbar
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -42,53 +37,31 @@ class PropertyListFragment : Fragment() {
 
 
         recyclerView.adapter = adapter
-        viewModel.propertyList.observe(viewLifecycleOwner) {
+        viewModel.propertyLiveData.observe(viewLifecycleOwner) {
             adapter.submitList(it)
         }
         viewModel.setFilterBoolean(false)
 
-        val toolbar = requireActivity().findViewById<MaterialToolbar>(R.id.topAppBar)
 
-        val menuHost: MenuHost = requireActivity()
-        menuHost.addMenuProvider(object : MenuProvider {
-            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                menuInflater.inflate(R.menu.top_app_bar_menu, menu)
+        binding.propertyListBtnFilter.setOnClickListener {
+            Log.e("test","onClick")
+            if (binding.fragmentListRlContainer.visibility == View.GONE) {
+                binding.fragmentListRlContainer.visibility = View.VISIBLE
+            } else {
+                binding.fragmentListRlContainer.visibility = View.GONE
             }
-
-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                return true
-            }
-        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
-
-        toolbar.setOnMenuItemClickListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.menu_item_filter -> {
-                    Log.e("list", "click")
-                    if (binding.fragmentListRlContainer.visibility == View.GONE) {
-                        binding.fragmentListRlContainer.visibility = View.VISIBLE
-                    } else {
-                        binding.fragmentListRlContainer.visibility = View.GONE
-                    }
-                    true
-
-                }
-                else -> {
-                    Log.e("list", "esle")
-                    true
-                }
-            }
-
         }
+
         binding.filterRsPrice.setValues(1f, 1000000f)
         binding.filterRsSurface.setValues(0f,1000f)
         binding.listFilterTvTypeSelectionDialog.setOnClickListener { setTypeDialog() }
 
         binding.filterBtnFilterList.setOnClickListener {
-            var type = binding.listFilterTvTypeSelectionDialog.text
-            var price = binding.filterRsPrice.values
-            var surface = binding.filterRsSurface.values
-            var poi = binding.listFilterTvPoiSelectionDialog.text
-            var test = listOf(type,price,surface,poi)
+            val type = binding.listFilterTvTypeSelectionDialog.text
+            val price = binding.filterRsPrice.values
+            val surface = binding.filterRsSurface.values
+            val poi = binding.listFilterTvPoiSelectionDialog.text
+            val test = listOf(type,price,surface,poi)
             Log.e("test",test.toString())
 
         viewModel.selectFilter(type,price,surface,poi)

@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:weightSum="4">
     <include
         android:id="@+id/app_bar_main"
         layout="@layout/app_bar"/>
@@ -12,25 +13,20 @@
         android:id="@+id/main_fl_container_property_list"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        app:layout_constraintWidth_percent="0.3"
         app:layout_constraintBottom_toTopOf="@id/bottom_app_bar_container"
         app:layout_constraintTop_toBottomOf="@id/app_bar_main"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/main_gl_list"/>
+        />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/main_gl_list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="200dp" />
 
     <FrameLayout
         android:id="@+id/main_fl_container_property_detail"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        app:layout_constraintWidth_percent="0.7"
         app:layout_constraintBottom_toTopOf="@id/bottom_app_bar_container"
         app:layout_constraintTop_toBottomOf="@id/app_bar_main"
-        app:layout_constraintStart_toStartOf="@id/main_gl_list"
         app:layout_constraintEnd_toEndOf="parent"
         />
 

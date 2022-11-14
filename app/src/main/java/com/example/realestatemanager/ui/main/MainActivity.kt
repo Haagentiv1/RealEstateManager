@@ -3,12 +3,14 @@ package com.example.realestatemanager.ui.main
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.realestatemanager.ConnectivityObserver
 import com.example.realestatemanager.R
 import com.example.realestatemanager.databinding.MainActivityBinding
+import com.example.realestatemanager.ui.propertyCreation.AddPropertyActivity
 import com.example.realestatemanager.ui.propertyDetail.PropertyDetailActivity
 import com.example.realestatemanager.ui.propertyDetail.PropertyDetailFragment
 import com.example.realestatemanager.ui.propertyList.PropertyListFragment
@@ -95,8 +97,8 @@ class MainActivity : AppCompatActivity() {
         }
         binding.appBarMain.topAppBar.setOnMenuItemClickListener { menuItem ->
             when(menuItem.itemId){
-                R.id.menu_item_filter -> {
-                    Log.e("main","click")
+                R.id.menu_item_add -> {
+                    startActivity(Intent(this@MainActivity,AddPropertyActivity::class.java))
                     true
                 }else ->{
                 Log.e("main","esle")
@@ -132,17 +134,17 @@ class MainActivity : AppCompatActivity() {
   //
   // }
 
-   // override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-   //     super.onCreateOptionsMenu(menu)
-   //     menuInflater.inflate(R.menu.top_app_bar_menu, menu)
-   //     if (binding.mainFlContainerPropertyDetail == null) {
-   //         val menuItemToHide = menu?.findItem(R.id.menu_item_edit)
-   //         menuItemToHide?.isVisible = false
-   //         invalidateMenu()
-   //         return true
-   //     }
-   //     return true
-   // }
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        super.onCreateOptionsMenu(menu)
+        menuInflater.inflate(R.menu.top_app_bar_menu, menu)
+        if (binding.mainFlContainerPropertyDetail == null) {
+            val menuItemToHide = menu?.findItem(R.id.menu_item_edit)
+            menuItemToHide?.isVisible = false
+            invalidateMenu()
+            return true
+        }
+        return true
+    }
 
 
     override fun onResume() {

@@ -1,185 +1,230 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <Spinner
-        android:id="@+id/add_property_type_spinner"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/add_property_il_price"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="price"
-        app:endIconDrawable="@drawable/ic_dollar_icon"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/add_property_type_spinner">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/add_property_et_price"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/add_property_il_surface"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="surface"
-        app:endIconDrawable="@drawable/ic_surface"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/add_property_il_price">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/add_property_et_surface"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <TextView
-        android:id="@+id/add_property_et_numberOfRoom_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Number of Rooms :"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/add_property_il_surface" />
-
-    <Spinner
-        android:id="@+id/add_property_numberOfRoom_spinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/add_property_et_numberOfRoom_title"
-        app:layout_constraintTop_toBottomOf="@id/add_property_il_surface" />
-
-    <TextView
-        android:id="@+id/add_property_et_numberOfBedRoom_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Number of bed Rooms :"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/add_property_et_numberOfRoom_title" />
-
-    <Spinner
-        android:id="@+id/add_property_numberOfBedRoom_spinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/add_property_et_numberOfBedRoom_title"
-        app:layout_constraintTop_toBottomOf="@id/add_property_et_numberOfRoom_title" />
-
-
-    <TextView
-        android:id="@+id/add_property_et_numberOfBathRoom_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Number of bath Rooms :"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/add_property_et_numberOfBedRoom_title" />
-
-    <Spinner
-        android:id="@+id/add_property_numberOfBathRoom_spinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/add_property_et_numberOfBathRoom_title"
-        app:layout_constraintTop_toBottomOf="@id/add_property_et_numberOfBedRoom_title" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/add_property_il_desc"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/add_property_et_numberOfBathRoom_title"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/add_property_et_desc"
+        <Spinner
+            android:id="@+id/add_property_type_spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textMultiLine"
-            android:hint="description"/>
-    </com.google.android.material.textfield.TextInputLayout>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/add_property_il_address"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/add_property_il_desc"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/add_property_et_address"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/add_property_il_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textMultiLine"
-            android:hint="address"/>
-    </com.google.android.material.textfield.TextInputLayout>
+            android:hint="price"
+            app:endIconDrawable="@drawable/ic_dollar_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/add_property_type_spinner">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/add_property_il_town"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/add_property_il_address"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/add_property_et_town"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/add_property_et_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/add_property_il_surface"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="town"/>
-    </com.google.android.material.textfield.TextInputLayout>
+            android:hint="surface"
+            app:endIconDrawable="@drawable/ic_surface"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/add_property_il_price">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/add_property_il_state"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/add_property_il_town"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/add_property_et_state"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/add_property_et_surface"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/add_property_et_numberOfRoom_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Number of Rooms :"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/add_property_il_surface" />
+
+        <Spinner
+            android:id="@+id/add_property_numberOfRoom_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/add_property_et_numberOfRoom_title"
+            app:layout_constraintTop_toBottomOf="@id/add_property_il_surface" />
+
+        <TextView
+            android:id="@+id/add_property_et_numberOfBedRoom_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Number of bed Rooms :"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/add_property_et_numberOfRoom_title" />
+
+        <Spinner
+            android:id="@+id/add_property_numberOfBedRoom_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/add_property_et_numberOfBedRoom_title"
+            app:layout_constraintTop_toBottomOf="@id/add_property_et_numberOfRoom_title" />
+
+
+        <TextView
+            android:id="@+id/add_property_et_numberOfBathRoom_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Number of bath Rooms :"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/add_property_et_numberOfBedRoom_title" />
+
+        <Spinner
+            android:id="@+id/add_property_numberOfBathRoom_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/add_property_et_numberOfBathRoom_title"
+            app:layout_constraintTop_toBottomOf="@id/add_property_et_numberOfBedRoom_title" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/add_property_il_desc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="state"/>
-    </com.google.android.material.textfield.TextInputLayout>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/add_property_et_numberOfBathRoom_title">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/add_property_il_zipcode"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/add_property_il_state"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/add_property_et_zipcode"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/add_property_et_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="description"
+                android:inputType="textMultiLine" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/add_property_il_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="state"/>
-    </com.google.android.material.textfield.TextInputLayout>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/add_property_il_desc">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/add_property_il_country"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/add_property_il_state"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/add_property_et_country"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/add_property_et_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="address"
+                android:inputType="textMultiLine" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/add_property_il_town"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="country"/>
-    </com.google.android.material.textfield.TextInputLayout>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/add_property_il_address">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/add_property_et_town"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="town" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/add_property_il_state"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/add_property_il_town">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/add_property_et_state"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="state" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/add_property_il_zipcode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/add_property_il_state">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/add_property_et_zipcode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="state" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/add_property_il_country"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/add_property_il_state">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/add_property_et_country"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="country" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <EditText
+            android:id="@+id/add_property_et_entryDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="20/01/2023"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/add_property_il_country" />
+
+        <EditText
+            android:id="@+id/add_property_saleDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="20/01/2023"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/add_property_et_entryDate" />
+
+        <EditText
+            android:id="@+id/add_property_et_estateManager"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tristan"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/add_property_saleDate" />
+
+        <Button
+            android:id="@+id/add_property_btn_addImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/add_property_et_estateManager" />
+
+        <ImageView
+            android:id="@+id/add_property_iv_property_picture"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/add_property_btn_addImage" />
 
 
-
-
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
