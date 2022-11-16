@@ -37,7 +37,9 @@ class PropertyDetailFragment : Fragment() {
         val recyclerView : RecyclerView = binding.propertyDetailPictureRv
         val adapter = PictureAdapter()
         recyclerView.adapter = adapter
+        binding.root.visibility = View.INVISIBLE
         viewModel.detailPropertyLiveData.observe(viewLifecycleOwner){
+            binding.root.visibility = View.VISIBLE
             Log.e("testpicturesize",it.picturesList.size.toString())
             binding.propertyDetailTvDescription.text = it.description
             binding.propertyDetailTvSquareMeterData.text = it.surfaceInSquareMeter.toString()
