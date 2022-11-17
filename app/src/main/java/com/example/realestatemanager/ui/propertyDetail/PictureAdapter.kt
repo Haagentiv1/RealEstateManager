@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.realestatemanager.databinding.PropertyDetailItemFragmentBinding
 
-class PictureAdapter : ListAdapter<String, PictureAdapter.PictureViewHolder>(PictureComparator()) {
+class PictureAdapter : ListAdapter<Pair<String,String>, PictureAdapter.PictureViewHolder>(PictureComparator()) {
 
 
     override fun onCreateViewHolder(
@@ -27,18 +27,23 @@ class PictureAdapter : ListAdapter<String, PictureAdapter.PictureViewHolder>(Pic
 
     class PictureViewHolder(private val binding: PropertyDetailItemFragmentBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: String) {
-            Glide.with(binding.root).load(item).centerCrop().into(binding.propertyDetailItemPicture)
+        fun bind(item: Pair<String,String>) {
+            Glide.with(binding.root).load(item.first).centerCrop().into(binding.propertyDetailItemPicture)
+            binding.propertyDetailPictureDesc.text = item.second
         }
     }
 
 
-    class PictureComparator : DiffUtil.ItemCallback<String>() {
-        override fun areContentsTheSame(oldItem: String, newItem: String): Boolean =
-            oldItem == newItem
+    class PictureComparator : DiffUtil.ItemCallback<Pair<String,String>>() {
+        override fun areItemsTheSame(
+            oldItem: Pair<String, String>,
+            newItem: Pair<String, String>
+        ): Boolean = oldItem == newItem
+        override fun areContentsTheSame(
+            oldItem: Pair<String, String>,
+            newItem: Pair<String, String>
+        ): Boolean = oldItem == newItem
 
-        override fun areItemsTheSame(oldItem: String, newItem: String): Boolean =
-            oldItem == newItem
     }
 
 }

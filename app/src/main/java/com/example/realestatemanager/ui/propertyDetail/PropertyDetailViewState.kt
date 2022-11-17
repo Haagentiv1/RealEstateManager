@@ -2,7 +2,7 @@ package com.example.realestatemanager.ui.propertyDetail
 
 data class PropertyDetailViewState(
     val id : Long,
-    val picturesList: List<String>,
+    val picturesList: List<Pair<String,String>>,
     val description : String,
     val surfaceInSquareMeter : Float,
     val numberOfRooms : Int,

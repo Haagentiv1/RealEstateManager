@@ -41,7 +41,7 @@ class PropertyListViewModel @Inject constructor(
                 properties.map {
                     PropertyListItemViewState(
                         it.id!!,
-                        it.pictures[0],
+                        it.pictures[0].first,
                         it.price,
                         it.type,
                         it.location[2]
@@ -84,7 +84,7 @@ class PropertyListViewModel @Inject constructor(
             }.map {
                 PropertyListItemViewState(
                     it.id!!,
-                    it.pictures!![0],
+                    it.pictures[0].first,
                     it.price,
                     it.type,
                     it.location[2]

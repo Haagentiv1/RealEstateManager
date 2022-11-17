@@ -16,5 +16,10 @@ object Converters {
     @TypeConverter
     fun fromList(list: List<String?>?) = Json.encodeToString(list)
 
+    @TypeConverter
+    fun fromListOfPair(list : List<Pair<String,String>>) = Json.encodeToString(list)
+
+    @TypeConverter
+    fun fromStringToListOfPair(value : String) = Json.decodeFromString<List<Pair<String,String>>>(value)
 }
 
