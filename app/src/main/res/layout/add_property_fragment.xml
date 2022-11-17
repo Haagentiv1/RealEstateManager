@@ -212,7 +212,7 @@
             app:layout_constraintTop_toBottomOf="@id/add_property_saleDate" />
 
         <Button
-            android:id="@+id/add_property_btn_addImage"
+            android:id="@+id/add_property_btn_take_picture"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableTop="@drawable/ic_baseline_camera_alt_24"
@@ -226,33 +226,44 @@
             android:layout_height="300dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/add_property_btn_addImage" />
+            app:layout_constraintTop_toBottomOf="@id/add_property_btn_take_picture" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/add_property_il_picture_desc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/add_property_iv_property_picture"
-            app:layout_constraintStart_toStartOf="parent"
+            android:hint="picture desc"
             app:layout_constraintEnd_toEndOf="parent"
-            android:hint="picture desc">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/add_property_iv_property_picture">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/add_property_et_picture_desc"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:inputType="text"/>
 
         </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/add_property_btn_add_picture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/add_property_il_picture_desc" />
 
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/add_property_rv_pictures"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/add_property_il_picture_desc"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="20dp"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            android:layout_marginBottom="20dp"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/add_property_btn_add_picture" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

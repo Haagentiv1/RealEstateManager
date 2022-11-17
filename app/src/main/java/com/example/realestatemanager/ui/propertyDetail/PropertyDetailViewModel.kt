@@ -26,7 +26,7 @@ class PropertyDetailViewModel @Inject constructor(
                     val result = propertyRepository.getPropertyById(id).map { estate ->
                         PropertyDetailViewState(
                             id = estate!!.id!!,
-                            picturesList = estate.pictures!!,
+                            picturesList = estate.pictures,
                             description = estate.description,
                             surfaceInSquareMeter = estate.squareMeter,
                             numberOfRooms = estate.numberOfRooms,

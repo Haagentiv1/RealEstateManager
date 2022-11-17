@@ -19,7 +19,7 @@ data class Property(
     @ColumnInfo(name = "number_of_rooms") val numberOfRooms: Int,
     @ColumnInfo(name = "number_of_bedrooms") val numberOfBedRooms: Int,
     @ColumnInfo(name = "number_of_bathrooms") val numberOfBathRooms: Int,
-    @ColumnInfo(name = "pictures") val pictures: List<String>?,
+    @ColumnInfo(name = "pictures") val pictures: List<String>,
     @ColumnInfo(name = "poi") val poi: List<String>?,
     @ColumnInfo(name = "status") val status: Boolean,
     @ColumnInfo(name ="entry_date") val entryDate: String,
