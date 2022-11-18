@@ -3,8 +3,9 @@ package com.example.realestatemanager.ui.propertyCreation
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.realestatemanager.databinding.AddPropertyActivityBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class AddPropertyActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

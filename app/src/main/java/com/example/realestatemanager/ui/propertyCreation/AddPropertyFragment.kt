@@ -16,15 +16,19 @@ import androidx.core.content.FileProvider.getUriForFile
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.realestatemanager.databinding.AddPropertyFragmentBinding
+import com.example.realestatemanager.ui.propertyDetail.PictureAdapter
+import com.example.realestatemanager.ui.propertyList.PropertyListAdapter
 import com.example.realestatemanager.ui.utils.Utils
+import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
-
+@AndroidEntryPoint
 class AddPropertyFragment : Fragment() {
 
 
@@ -49,6 +53,14 @@ class AddPropertyFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val recyclerView : RecyclerView = binding.addPropertyRvPictures
+        val adapter = PictureAdapter()
+        recyclerView.adapter = adapter
+
+        viewModel.pictureListLiveData.observe(viewLifecycleOwner){
+            adapter.submitList(it)
+        }
+
         binding.addPropertyIvPropertyPicture
         val takePicture =
             registerForActivityResult(ActivityResultContracts.TakePicturePreview()) {
@@ -63,6 +75,8 @@ class AddPropertyFragment : Fragment() {
 
 
             }
+
+
 
         binding.addPropertyBtnTakePicture.setOnClickListener {
             takePicture.launch()
@@ -82,7 +96,6 @@ class AddPropertyFragment : Fragment() {
         actualPictureFilePath = file.toString()
         Log.e("fileString",file.toString())
         Glide.with(this).load(file).into(binding.addPropertyIvPropertyPicture)
-
     }
 
 
