@@ -7,6 +7,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.example.realestatemanager.NetworkConnectivityObserver
 import com.example.realestatemanager.data.local.db.PropertyDatabase
+import com.example.realestatemanager.data.local.repositories.PointOfInterestRepository
+import com.example.realestatemanager.data.local.repositories.PointOfInterestRepositoryImpl
 import com.example.realestatemanager.data.local.repositories.PropertyRepository
 import com.example.realestatemanager.data.local.repositories.PropertyRepositoryImpl
 import dagger.Module
@@ -33,14 +35,19 @@ object AppModule {
             app,
             PropertyDatabase::class.java,
             PropertyDatabase.DATABASE_NAME
-        ).createFromAsset("property_database.db")
-            .build()
+        ).build()
     }
 
     @Singleton
     @Provides
     fun providePropertyRepository(db: PropertyDatabase): PropertyRepository {
         return PropertyRepositoryImpl(db.propertyDao)
+    }
+
+    @Singleton
+    @Provides
+    fun providePointOfInterestRepository(db : PropertyDatabase) : PointOfInterestRepository{
+        return PointOfInterestRepositoryImpl(db.pointOfInterestDao)
     }
 
     @Singleton

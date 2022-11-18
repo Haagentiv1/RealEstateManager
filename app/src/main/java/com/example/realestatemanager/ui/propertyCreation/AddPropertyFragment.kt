@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.launch
 import androidx.core.content.FileProvider.getUriForFile
@@ -18,15 +19,19 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.realestatemanager.data.local.model.PointOfInterest
 import com.example.realestatemanager.databinding.AddPropertyFragmentBinding
 import com.example.realestatemanager.ui.propertyDetail.PictureAdapter
 import com.example.realestatemanager.ui.propertyList.PropertyListAdapter
 import com.example.realestatemanager.ui.utils.Utils
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.coroutineScope
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.coroutines.coroutineContext
 
 @AndroidEntryPoint
 class AddPropertyFragment : Fragment() {
@@ -60,6 +65,14 @@ class AddPropertyFragment : Fragment() {
         viewModel.pictureListLiveData.observe(viewLifecycleOwner){
             adapter.submitList(it)
         }
+    
+
+        viewModel.pointOfInterestLiveData.observe(viewLifecycleOwner){
+            val arrayAdapter = ArrayAdapter(requireContext(),android.R.layout.simple_spinner_item,it)
+            arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            binding.addPropertyTypeSpinner.adapter = arrayAdapter
+        }
+
 
         binding.addPropertyIvPropertyPicture
         val takePicture =
@@ -87,6 +100,8 @@ class AddPropertyFragment : Fragment() {
             viewModel.setPicture(Pair(first = actualPictureFilePath, second = desc))
         }
     }
+
+
 
     fun retrievePictureFromFile(name : String){
         Log.e("testRestrie",name)

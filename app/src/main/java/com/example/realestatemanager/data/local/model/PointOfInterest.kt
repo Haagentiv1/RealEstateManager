@@ -9,6 +9,6 @@ import kotlinx.serialization.Serializable
 @Serializable
 @Entity(tableName = "point_of_interest")
 data class PointOfInterest (
-        @PrimaryKey(autoGenerate = true) val it : Long?,
+        @PrimaryKey(autoGenerate = true) val id : Long?,
         @ColumnInfo(name = "poi_name") val name : String
         )
