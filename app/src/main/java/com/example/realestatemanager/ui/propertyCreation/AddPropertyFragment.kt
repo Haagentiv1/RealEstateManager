@@ -82,7 +82,11 @@ class AddPropertyFragment : Fragment() {
 
 
         binding.addPropertyEtEntryDate.setOnClickListener {
-            createDatePicker()
+            createEntryDatePicker()
+        }
+
+        binding.addPropertyEtSaleDate.setOnClickListener {
+            createSaleDatePicker()
         }
 
 
@@ -114,21 +118,34 @@ class AddPropertyFragment : Fragment() {
     }
 
     @SuppressLint("SetTextI18n")
-    var dateSetListener =
+    var entryDateSetListener =
         OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
             binding.addPropertyEtEntryDate.setText(
-                "$dayOfMonth/${monthOfYear + 1}/$year)"
+                "$dayOfMonth/${monthOfYear + 1}/$year"
+            )
+        }
+
+    @SuppressLint("SetTextI18n")
+    var saleDateSetListener =
+        OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+            binding.addPropertyEtSaleDate.setText(
+                "$dayOfMonth/${monthOfYear + 1}/$year"
             )
         }
 
 
-    private fun createDatePicker() {
+    private fun createEntryDatePicker() {
         val datePicker = DatePickerDialog(requireContext(),
-            dateSetListener,
-        2022,11,19)
+            entryDateSetListener,
+        2022,11 - 1,19)
         datePicker.show()
+    }
 
-
+    private fun createSaleDatePicker() {
+        val datePicker = DatePickerDialog(requireContext(),
+            saleDateSetListener,
+            2022,11 - 1,19)
+        datePicker.show()
     }
 
 
