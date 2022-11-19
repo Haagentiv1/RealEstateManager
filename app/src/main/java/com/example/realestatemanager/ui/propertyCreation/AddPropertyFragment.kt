@@ -1,37 +1,29 @@
 package com.example.realestatemanager.ui.propertyCreation
 
-import android.content.Context
+import android.annotation.SuppressLint
+import android.app.DatePickerDialog
+import android.app.DatePickerDialog.OnDateSetListener
 import android.content.Context.MODE_PRIVATE
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.launch
-import androidx.core.content.FileProvider.getUriForFile
-import androidx.core.net.toUri
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.realestatemanager.data.local.model.PointOfInterest
 import com.example.realestatemanager.databinding.AddPropertyFragmentBinding
 import com.example.realestatemanager.ui.propertyDetail.PictureAdapter
-import com.example.realestatemanager.ui.propertyList.PropertyListAdapter
-import com.example.realestatemanager.ui.utils.Utils
+import com.example.realestatemanager.ui.utils.Type
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.coroutineScope
-import java.io.File
 import java.io.IOException
-import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
-import kotlin.coroutines.coroutineContext
+
 
 @AndroidEntryPoint
 class AddPropertyFragment : Fragment() {
@@ -41,8 +33,9 @@ class AddPropertyFragment : Fragment() {
     private var _binding: AddPropertyFragmentBinding? = null
     private val binding get() = _binding!!
     private val viewModel by viewModels<AddPropertyViewModel>()
-    lateinit var actualPictureFilePath : String
-
+    lateinit var actualPictureFilePath: String
+    private lateinit var poiDialogBuilder: AlertDialog.Builder
+    private lateinit var typeDialogBuilder: AlertDialog.Builder
 
 
     override fun onCreateView(
@@ -58,20 +51,40 @@ class AddPropertyFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val recyclerView : RecyclerView = binding.addPropertyRvPictures
+        val recyclerView: RecyclerView = binding.addPropertyRvPictures
         val adapter = PictureAdapter()
         recyclerView.adapter = adapter
+        poiDialogBuilder = AlertDialog.Builder(requireContext())
 
-        viewModel.pictureListLiveData.observe(viewLifecycleOwner){
+        binding.addPropertyTvType.text
+
+        viewModel.pointOfInterestLiveData.observe(viewLifecycleOwner) {
+            createPoiDialog(it)
+        }
+
+
+        viewModel.pictureListLiveData.observe(viewLifecycleOwner) {
             adapter.submitList(it)
         }
-    
 
-        viewModel.pointOfInterestLiveData.observe(viewLifecycleOwner){
-            val arrayAdapter = ArrayAdapter(requireContext(),android.R.layout.simple_spinner_item,it)
-            arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            binding.addPropertyTypeSpinner.adapter = arrayAdapter
+
+
+
+        binding.addPropertyEtPoi.setOnClickListener {
+            poiDialogBuilder.show()
         }
+
+
+        val listOfType = Type.values().map { it.name }.toTypedArray()
+
+        binding.addPropertyTvType.setSimpleItems(listOfType)
+
+
+
+        binding.addPropertyEtEntryDate.setOnClickListener {
+            createDatePicker()
+        }
+
 
 
         binding.addPropertyIvPropertyPicture
@@ -79,17 +92,15 @@ class AddPropertyFragment : Fragment() {
             registerForActivityResult(ActivityResultContracts.TakePicturePreview()) {
                 val name = Calendar.getInstance().timeInMillis.toString()
                 if (it != null) {
-                   val isSaved = savePhotoToInternalStorage(name,it)
-                    if  (isSaved){
+                    val isSaved = savePhotoToInternalStorage(name, it)
+                    if (isSaved) {
                         retrievePictureFromFile(name)
-                    }else{
+                    } else {
                     }
                 }
 
 
             }
-
-
 
         binding.addPropertyBtnTakePicture.setOnClickListener {
             takePicture.launch()
@@ -99,17 +110,53 @@ class AddPropertyFragment : Fragment() {
             val desc = binding.addPropertyEtPictureDesc.text.toString()
             viewModel.setPicture(Pair(first = actualPictureFilePath, second = desc))
         }
+
+    }
+
+    @SuppressLint("SetTextI18n")
+    var dateSetListener =
+        OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+            binding.addPropertyEtEntryDate.setText(
+                "$dayOfMonth/${monthOfYear + 1}/$year)"
+            )
+        }
+
+
+    private fun createDatePicker() {
+        val datePicker = DatePickerDialog(requireContext(),
+            dateSetListener,
+        2022,11,19)
+        datePicker.show()
+
+
     }
 
 
+    private fun createPoiDialog(list: List<String>) {
+        val poiCheck = mutableListOf<String>()
+        poiDialogBuilder
+            .setTitle("Choose Poi")
+            .setCancelable(true)
+            .setMultiChoiceItems(
+                list.toTypedArray(),
+                BooleanArray(list.size)
+            ) { dialogInterface, index, check ->
+                if (check) {
+                    poiCheck.add(list[index])
+                }
+                binding.addPropertyEtPoi.setText(poiCheck.toString())
+            }
+        poiDialogBuilder.create()
+    }
 
-    fun retrievePictureFromFile(name : String){
-        Log.e("testRestrie",name)
+
+    private fun retrievePictureFromFile(name: String) {
+        Log.e("testRestrie", name)
         val files = context?.filesDir?.listFiles()
-        val image =  files?.filter { it.name.equals("$name.jpg") } ?: listOf()
+        val image = files?.filter { it.name.equals("$name.jpg") } ?: listOf()
         val file = image[0]?.absoluteFile
         actualPictureFilePath = file.toString()
-        Log.e("fileString",file.toString())
+        Log.e("fileString", file.toString())
         Glide.with(this).load(file).into(binding.addPropertyIvPropertyPicture)
     }
 
