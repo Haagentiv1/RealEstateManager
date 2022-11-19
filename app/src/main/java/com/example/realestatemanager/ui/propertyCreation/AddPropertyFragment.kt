@@ -89,7 +89,16 @@ class AddPropertyFragment : Fragment() {
             createSaleDatePicker()
         }
 
+        val galleryPicture = registerForActivityResult(ActivityResultContracts.GetContent()){
+            it.let {
+                Glide.with(requireContext()).load(it).centerCrop().into(binding.addPropertyIvPropertyPicture)
+            actualPictureFilePath = it.toString()
+            }
+        }
 
+        binding.addPropertyBtnGalleryPicture.setOnClickListener {
+            galleryPicture.launch("image/*")
+        }
 
         binding.addPropertyIvPropertyPicture
         val takePicture =
