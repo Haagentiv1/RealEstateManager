@@ -17,6 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:hint="choose type"
+
             app:endIconMode="dropdown_menu"
             app:hintEnabled="true"
             app:layout_constraintEnd_toEndOf="parent"
@@ -35,13 +36,13 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/add_property_il_price"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:hint="price"
             app:hintEnabled="true"
-
+            app:errorEnabled="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/add_property_il_type"
@@ -60,6 +61,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
+            app:errorEnabled="true"
             android:hint="surface"
             app:endIconDrawable="@drawable/ic_surface"
             app:layout_constraintEnd_toEndOf="parent"
@@ -80,6 +82,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
+            app:errorEnabled="true"
             android:hint="number of room"
             app:endIconDrawable="@drawable/ic_outline_house_24"
             app:endIconMode="custom"
@@ -100,6 +103,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
+            app:errorEnabled="true"
             android:hint="number of BedRoom"
             app:endIconDrawable="@drawable/ic_outline_bed_24"
             app:endIconMode="custom"
@@ -120,6 +124,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
+            app:errorEnabled="true"
             android:hint="number of bathRoom"
             app:endIconDrawable="@drawable/ic_outline_bathroom_24"
             app:endIconMode="custom"
@@ -132,6 +137,7 @@
                 android:id="@+id/add_property_et_numberOfBathRoom"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+
                 android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -141,6 +147,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:errorEnabled="true"
             android:layout_margin="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -159,6 +166,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:errorEnabled="true"
             android:layout_margin="20dp"
             app:helperText="e.g: 740 Park Avenue, PH17/18D"
             app:helperTextTextColor="@color/primaryColor"
@@ -179,6 +187,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:errorEnabled="true"
             android:layout_margin="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -197,6 +206,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            app:errorEnabled="true"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             app:helperText="e.g NY"
@@ -221,6 +231,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            app:errorEnabled="true"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
             app:counterMaxLength="5"
@@ -246,6 +257,7 @@
             android:layout_margin="20dp"
             android:focusable="false"
             android:clickable="false"
+            app:errorEnabled="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/add_property_il_zipcode">
@@ -265,15 +277,14 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/add_property_il_poi"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:layout_marginTop="5dp"
-
             android:focusable="false"
             android:gravity="center_vertical"
             android:hint="Choose Poi"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/add_property_btn_add_poi"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/add_property_il_country">
 
@@ -285,6 +296,17 @@
                 android:focusable="false"/>
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/add_property_btn_add_poi"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/ic_baseline_add_business_24"
+            app:layout_constraintStart_toEndOf="@id/add_property_il_poi"
+            app:layout_constraintTop_toTopOf="@id/add_property_il_poi"
+            app:layout_constraintBottom_toBottomOf="@id/add_property_il_poi"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/add_property_il_entryDate"
@@ -292,6 +314,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="entry date"
+            app:errorEnabled="true"
             android:layout_marginTop="20dp"
             android:layout_marginStart="20dp"
             android:clickable="false"
@@ -346,6 +369,7 @@
             app:layout_constraintTop_toBottomOf="@id/add_property_il_saleDate" >
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/add_property_et_manager"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="manager"
@@ -375,8 +399,8 @@
 
         <ImageView
             android:id="@+id/add_property_iv_property_picture"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -397,22 +421,24 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/add_property_et_picture_desc"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
+                android:layout_height="match_parent"
                 android:inputType="text" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/add_property_btn_add_picture"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:text="Add picture"
             android:layout_marginEnd="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/ic_baseline_add_a_photo_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/add_property_il_picture_desc"
-            app:layout_constraintTop_toBottomOf="@id/add_property_iv_property_picture" />
+            app:layout_constraintTop_toTopOf="@id/add_property_il_picture_desc"
+            app:layout_constraintBottom_toBottomOf="@id/add_property_il_picture_desc"
+            />
 
 
         <androidx.recyclerview.widget.RecyclerView

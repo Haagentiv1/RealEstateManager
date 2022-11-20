@@ -10,17 +10,20 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.launch
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.realestatemanager.databinding.AddPropertyFragmentBinding
 import com.example.realestatemanager.ui.propertyDetail.PictureAdapter
 import com.example.realestatemanager.ui.utils.Type
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import java.io.IOException
 import java.util.*
 
@@ -29,13 +32,13 @@ import java.util.*
 class AddPropertyFragment : Fragment() {
 
 
-    private val FILENAME_FORMAT = "dd-MM-yyyy-hh-mm-ss"
+    private var pictureList : List<Pair<String,String>>? = null
     private var _binding: AddPropertyFragmentBinding? = null
     private val binding get() = _binding!!
     private val viewModel by viewModels<AddPropertyViewModel>()
     lateinit var actualPictureFilePath: String
     private lateinit var poiDialogBuilder: AlertDialog.Builder
-    private lateinit var typeDialogBuilder: AlertDialog.Builder
+
 
 
     override fun onCreateView(
@@ -64,6 +67,7 @@ class AddPropertyFragment : Fragment() {
 
 
         viewModel.pictureListLiveData.observe(viewLifecycleOwner) {
+            pictureList= it
             adapter.submitList(it)
         }
 
@@ -89,10 +93,11 @@ class AddPropertyFragment : Fragment() {
             createSaleDatePicker()
         }
 
-        val galleryPicture = registerForActivityResult(ActivityResultContracts.GetContent()){
+        val galleryPicture = registerForActivityResult(ActivityResultContracts.GetContent()) {
             it.let {
-                Glide.with(requireContext()).load(it).centerCrop().into(binding.addPropertyIvPropertyPicture)
-            actualPictureFilePath = it.toString()
+                Glide.with(requireContext()).load(it).centerCrop()
+                    .into(binding.addPropertyIvPropertyPicture)
+                actualPictureFilePath = it.toString()
             }
         }
 
@@ -122,9 +127,29 @@ class AddPropertyFragment : Fragment() {
         binding.addPropertyBtnAddPicture.setOnClickListener {
             val desc = binding.addPropertyEtPictureDesc.text.toString()
             viewModel.setPicture(Pair(first = actualPictureFilePath, second = desc))
+            binding.addPropertyEtPictureDesc.text?.clear()
+            Glide.with(binding.addPropertyIvPropertyPicture)
+                .clear(binding.addPropertyIvPropertyPicture)
         }
 
+        binding.addPropertyBtnSaveProperty.setOnClickListener {
+            lifecycleScope.launch {
+                if (emptyInputTextCheck()){
+                    if (!pictureList.isNullOrEmpty()){
+                        Toast.makeText(context,"All is okay",Toast.LENGTH_LONG).show()
+                    }else {
+                        Toast.makeText(context,"You should at least add one picture",Toast.LENGTH_LONG).show()
+                    }
+                }
+
+            }
+
+
+        }
+
+
     }
+
 
     @SuppressLint("SetTextI18n")
     var entryDateSetListener =
@@ -142,18 +167,57 @@ class AddPropertyFragment : Fragment() {
             )
         }
 
+    private fun emptyInputTextCheck(): Boolean {
+        var result = true
+        lifecycleScope.launch {
+
+            val listOfInputEditText = listOf(
+                binding.addPropertyTvType,
+                binding.addPropertyEtPrice,
+                binding.addPropertyEtSurface,
+                binding.addPropertyEtNumberOfRoom,
+                binding.addPropertyEtNumberOfBedRoom,
+                binding.addPropertyEtNumberOfBathRoom,
+                binding.addPropertyEtDesc,
+                binding.addPropertyEtAddress,
+                binding.addPropertyEtTown,
+                binding.addPropertyEtState,
+                binding.addPropertyEtZipcode,
+                binding.addPropertyEtCountry,
+                binding.addPropertyEtEntryDate,
+                binding.addPropertyEtManager
+            )
+            listOfInputEditText.forEach {
+                if (it.text.isNullOrBlank()){
+                    it.error = "You cannot let this field empty"
+                    result =false
+                }else {
+                    it.error = null
+                }
+            }
+        }
+        return result
+
+
+
+    }
+
 
     private fun createEntryDatePicker() {
-        val datePicker = DatePickerDialog(requireContext(),
+        val datePicker = DatePickerDialog(
+            requireContext(),
             entryDateSetListener,
-        2022,11 - 1,19)
+            2022, 11 - 1, 19
+        )
         datePicker.show()
     }
 
     private fun createSaleDatePicker() {
-        val datePicker = DatePickerDialog(requireContext(),
+        val datePicker = DatePickerDialog(
+            requireContext(),
             saleDateSetListener,
-            2022,11 - 1,19)
+            2022, 11 - 1, 19
+        )
         datePicker.show()
     }
 
@@ -183,7 +247,7 @@ class AddPropertyFragment : Fragment() {
         val file = image[0]?.absoluteFile
         actualPictureFilePath = file.toString()
         Log.e("fileString", file.toString())
-        Glide.with(this).load(file).into(binding.addPropertyIvPropertyPicture)
+        Glide.with(requireContext()).load(file).into(binding.addPropertyIvPropertyPicture)
     }
 
 
