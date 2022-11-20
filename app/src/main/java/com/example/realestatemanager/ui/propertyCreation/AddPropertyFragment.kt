@@ -5,6 +5,7 @@ import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
 import android.content.Context.MODE_PRIVATE
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -19,9 +20,11 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.realestatemanager.data.local.model.Property
 import com.example.realestatemanager.databinding.AddPropertyFragmentBinding
 import com.example.realestatemanager.ui.propertyDetail.PictureAdapter
 import com.example.realestatemanager.ui.utils.Type
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.io.IOException
@@ -32,13 +35,12 @@ import java.util.*
 class AddPropertyFragment : Fragment() {
 
 
-    private var pictureList : List<Pair<String,String>>? = null
+    private var pictureList: List<Pair<String, String>>? = null
     private var _binding: AddPropertyFragmentBinding? = null
     private val binding get() = _binding!!
     private val viewModel by viewModels<AddPropertyViewModel>()
     lateinit var actualPictureFilePath: String
     private lateinit var poiDialogBuilder: AlertDialog.Builder
-
 
 
     override fun onCreateView(
@@ -67,7 +69,7 @@ class AddPropertyFragment : Fragment() {
 
 
         viewModel.pictureListLiveData.observe(viewLifecycleOwner) {
-            pictureList= it
+            pictureList = it
             adapter.submitList(it)
         }
 
@@ -95,14 +97,21 @@ class AddPropertyFragment : Fragment() {
 
         val galleryPicture = registerForActivityResult(ActivityResultContracts.GetContent()) {
             it.let {
-                Glide.with(requireContext()).load(it).centerCrop()
-                    .into(binding.addPropertyIvPropertyPicture)
-                actualPictureFilePath = it.toString()
+                val name = Calendar.getInstance().timeInMillis.toString()
+                val inputStream = context?.contentResolver?.openInputStream(it!!)
+                val bmp = BitmapFactory.decodeStream(inputStream)
+                val isSaved = savePhotoToInternalStorage(name,bmp)
+                if (isSaved){
+                    retrievePictureFromFile(name)
+                }else{
+                    Log.e("tete","ewgwewewge")
+                }
+
             }
         }
 
         binding.addPropertyBtnGalleryPicture.setOnClickListener {
-            galleryPicture.launch("image/*")
+            galleryPicture.launch("image/gallery")
         }
 
         binding.addPropertyIvPropertyPicture
@@ -114,6 +123,7 @@ class AddPropertyFragment : Fragment() {
                     if (isSaved) {
                         retrievePictureFromFile(name)
                     } else {
+                        Log.e("tete","ewgwewewge")
                     }
                 }
 
@@ -134,12 +144,43 @@ class AddPropertyFragment : Fragment() {
 
         binding.addPropertyBtnSaveProperty.setOnClickListener {
             lifecycleScope.launch {
-                if (emptyInputTextCheck()){
-                    if (!pictureList.isNullOrEmpty()){
-                        Toast.makeText(context,"All is okay",Toast.LENGTH_LONG).show()
-                    }else {
-                        Toast.makeText(context,"You should at least add one picture",Toast.LENGTH_LONG).show()
+                if (emptyInputTextCheck()) {
+                    if (!pictureList.isNullOrEmpty()) {
+                        viewModel.insertProperty(
+                            Property(
+                                null,
+                                type = binding.addPropertyTvType.text.toString(),
+                                description = binding.addPropertyEtDesc.text.toString(),
+                                price = binding.addPropertyEtPrice.text.toString().toLong(),
+                                squareMeter = binding.addPropertyEtSurface.text.toString()
+                                    .toFloat(),
+                                location = getLocation(),
+                                numberOfRooms = binding.addPropertyEtNumberOfRoom.text.toString()
+                                    .toInt(),
+                                numberOfBedRooms = binding.addPropertyEtNumberOfBedRoom.text.toString()
+                                    .toInt(),
+                                numberOfBathRooms = binding.addPropertyEtNumberOfBathRoom.text.toString()
+                                    .toInt(),
+                                poi = getPoi(),
+                                status = binding.addPropertyEtSaleDate.text.isNullOrBlank(),
+                                pictures = listOf(),
+                                entryDate = binding.addPropertyEtEntryDate.text.toString(),
+                                saleDate = binding.addPropertyEtSaleDate.text.toString(),
+                                estateManagerName = binding.addPropertyEtManager.text.toString()
+                            )
+                        )
+                        Snackbar.make(binding.root, "Property well inserted", Snackbar.LENGTH_LONG)
+                            .show()
+                        activity?.finish()
+                    } else {
+                        Toast.makeText(
+                            context,
+                            "You should at least add one picture",
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
+                } else {
+                    Toast.makeText(context, "Some field are empty", Toast.LENGTH_LONG).show()
                 }
 
             }
@@ -148,6 +189,26 @@ class AddPropertyFragment : Fragment() {
         }
 
 
+    }
+
+    private fun getStatus(): Boolean {
+        return binding.addPropertyEtSaleDate.text.isNullOrBlank()
+    }
+
+    private fun getPoi(): List<String> {
+        val poi = binding.addPropertyEtPoi.text.toString()
+        return poi.split(",")
+    }
+
+
+    private fun getLocation(): List<String> {
+        val address = binding.addPropertyEtAddress.text.toString()
+        val town = binding.addPropertyEtTown.text.toString()
+        val state = binding.addPropertyEtState.text.toString()
+        val zipcode = binding.addPropertyEtZipcode.text.toString()
+        val country = binding.addPropertyEtCountry.text.toString()
+
+        return listOf(address, town, state, zipcode, country)
     }
 
 
@@ -169,35 +230,34 @@ class AddPropertyFragment : Fragment() {
 
     private fun emptyInputTextCheck(): Boolean {
         var result = true
-        lifecycleScope.launch {
 
-            val listOfInputEditText = listOf(
-                binding.addPropertyTvType,
-                binding.addPropertyEtPrice,
-                binding.addPropertyEtSurface,
-                binding.addPropertyEtNumberOfRoom,
-                binding.addPropertyEtNumberOfBedRoom,
-                binding.addPropertyEtNumberOfBathRoom,
-                binding.addPropertyEtDesc,
-                binding.addPropertyEtAddress,
-                binding.addPropertyEtTown,
-                binding.addPropertyEtState,
-                binding.addPropertyEtZipcode,
-                binding.addPropertyEtCountry,
-                binding.addPropertyEtEntryDate,
-                binding.addPropertyEtManager
-            )
-            listOfInputEditText.forEach {
-                if (it.text.isNullOrBlank()){
-                    it.error = "You cannot let this field empty"
-                    result =false
-                }else {
-                    it.error = null
-                }
+
+        val listOfInputEditText = listOf(
+            binding.addPropertyTvType,
+            binding.addPropertyEtPrice,
+            binding.addPropertyEtSurface,
+            binding.addPropertyEtNumberOfRoom,
+            binding.addPropertyEtNumberOfBedRoom,
+            binding.addPropertyEtNumberOfBathRoom,
+            binding.addPropertyEtDesc,
+            binding.addPropertyEtAddress,
+            binding.addPropertyEtTown,
+            binding.addPropertyEtState,
+            binding.addPropertyEtZipcode,
+            binding.addPropertyEtCountry,
+            binding.addPropertyEtEntryDate,
+            binding.addPropertyEtManager
+        )
+        listOfInputEditText.forEach {
+            if (it.text.isNullOrBlank()) {
+                it.error = "You cannot let this field empty"
+                result = false
+            } else {
+                it.error = null
             }
         }
-        return result
 
+        return result
 
 
     }
