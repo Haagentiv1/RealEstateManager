@@ -1,5 +1,6 @@
 package com.example.realestatemanager.ui.propertyCreation
 
+
 import androidx.lifecycle.*
 import com.example.realestatemanager.data.local.model.PointOfInterest
 import com.example.realestatemanager.data.local.model.Property
@@ -14,28 +15,33 @@ import javax.inject.Inject
 class AddPropertyViewModel @Inject constructor(
     private val propertyRepository: PropertyRepository,
     private val pointOfInterestRepository: PointOfInterestRepository,
-    savedStateHandle: SavedStateHandle
-) : ViewModel() {
 
-    private var currentPropertyId: Long? = null
+    ) : ViewModel() {
 
+    private val currentPropertyId = MutableLiveData<Long?>().apply { value = null }
 
-    init {
-        savedStateHandle.get<Long>("propertyId")?.let { propertyId ->
-            if (propertyId != (-1).toLong()) {
-                viewModelScope.launch {
-                    propertyRepository.getPropertyById(propertyId).also {
-                        currentPropertyId = it.value?.id
-                    }
-                }
-            }
-        }
+    val pictureListLiveData = MutableLiveData<List<Pair<String, String>>>()
+
+    val property = MutableLiveData<Property?>()
+
+    fun setPicturesList(list: List<Pair<String, String>>) {
+        pictureListLiveData.value = list
     }
+
+
+    fun getPropertyById(id: Long): LiveData<Property?> {
+
+        val property : MutableLiveData<Property?> = propertyRepository.getPropertyById(id).asLiveData() as MutableLiveData<Property?>
+        currentPropertyId.value = id
+        return property
+
+    }
+
 
     fun insertProperty(property: Property) = viewModelScope.launch {
         propertyRepository.insertProperty(
             Property(
-                currentPropertyId,
+                currentPropertyId.value,
                 property.type,
                 property.description,
                 property.price,
@@ -60,11 +66,6 @@ class AddPropertyViewModel @Inject constructor(
                 poi.name
             }
         }.asLiveData()
-
-
-    val pictureListLiveData: MutableLiveData<List<Pair<String, String>>> by lazy {
-        MutableLiveData<List<Pair<String, String>>>()
-    }
 
 
     fun insertPointOfInterest(poi: String) = viewModelScope.launch {

@@ -1,5 +1,6 @@
 package com.example.realestatemanager.ui.propertyDetail
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,11 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.SavedStateHandle
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.realestatemanager.R
 import com.example.realestatemanager.databinding.PropertyDetailFragmentBinding
+import com.example.realestatemanager.ui.propertyCreation.AddPropertyActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -21,6 +22,7 @@ class PropertyDetailFragment : Fragment() {
     private var _binding : PropertyDetailFragmentBinding? = null
     private val binding get() = _binding!!
     private val viewModel by viewModels<PropertyDetailViewModel>()
+    private var propertyId : Long? = null
 
 
     override fun onCreateView(
@@ -40,6 +42,7 @@ class PropertyDetailFragment : Fragment() {
         recyclerView.adapter = adapter
         binding.root.visibility = View.INVISIBLE
         viewModel.detailPropertyLiveData.observe(viewLifecycleOwner){
+            propertyId = it.id
             binding.root.visibility = View.VISIBLE
             Log.e("testpicturesize",it.picturesList.size.toString())
             binding.propertyDetailTvDescription.text = it.description
@@ -54,6 +57,12 @@ class PropertyDetailFragment : Fragment() {
             binding.propertyDetailCountry.text = it.country
             Glide.with(this).load(it.mapStaticString).error(R.drawable.ic_image_not_loaded_24).into(binding.propertyDetailMapStaticContainerIv)
             adapter.submitList(it.picturesList)
+        }
+
+        binding.propertyDetailBtnEdit.setOnClickListener {
+            val intent = Intent(context,AddPropertyActivity::class.java)
+            intent.putExtra("propertyId",propertyId)
+            startActivity(intent)
         }
 
     }

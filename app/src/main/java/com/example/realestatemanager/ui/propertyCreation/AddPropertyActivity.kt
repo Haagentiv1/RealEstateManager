@@ -1,6 +1,7 @@
 package com.example.realestatemanager.ui.propertyCreation
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.realestatemanager.databinding.AddPropertyActivityBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -13,9 +14,15 @@ class AddPropertyActivity : AppCompatActivity() {
         val binding = AddPropertyActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.appBarMain.topAppBar)
+        val intent = intent.getLongExtra("propertyId",-1)
 
         if (savedInstanceState == null){
-            supportFragmentManager.beginTransaction().replace(binding.addPropertyFlContainer.id,AddPropertyFragment()).commitNow()
+            Log.e("test", intent.toString())
+            val bundle = Bundle()
+            bundle.putLong("propertyId",intent)
+            val fragment =AddPropertyFragment()
+            fragment.arguments  =bundle
+            supportFragmentManager.beginTransaction().replace(binding.addPropertyFlContainer.id,fragment).commitNow()
         }
     }
 }

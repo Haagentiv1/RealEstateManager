@@ -1,6 +1,6 @@
 package com.example.realestatemanager.data.local.dao
 
-import androidx.lifecycle.LiveData
+
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -16,7 +16,7 @@ interface PropertyDao {
     suspend fun insertProperty(property: Property)
 
     @Query("SELECT * FROM property WHERE id = :id")
-    fun getPropertyById(id: Long): LiveData<Property?>
+    fun getPropertyById(id: Long): Flow<Property?>
 
     @Query("SELECT * FROM property")
     fun getProperties(): Flow<List<Property>>

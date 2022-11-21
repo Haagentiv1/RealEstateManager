@@ -13,18 +13,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/property_detail_btn_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:src="@drawable/ic_baseline_edit_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/property_detail_picture_rv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:orientation="horizontal"
-        tools:listitem="@layout/property_detail_item_fragment"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/property_detail_tv_title_pictureRv" />
+        app:layout_constraintTop_toBottomOf="@id/property_detail_tv_title_pictureRv"
+        tools:listitem="@layout/property_detail_item_fragment" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/property_detail_tv_title_tvDescription"
@@ -120,16 +129,16 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:text="wweewgwgewge"
-        app:layout_constraintTop_toTopOf="@id/property_detail_numberOfBathRooms_title"
         app:layout_constraintBottom_toBottomOf="@id/property_detail_numberOfBathRooms_title"
-        app:layout_constraintStart_toEndOf="@id/property_detail_numberOfBathRooms_title"/>
+        app:layout_constraintStart_toEndOf="@id/property_detail_numberOfBathRooms_title"
+        app:layout_constraintTop_toTopOf="@id/property_detail_numberOfBathRooms_title" />
 
     <ImageView
         android:id="@+id/property_detail_mapStaticContainer_iv"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        app:layout_constraintEnd_toEndOf="parent"
         android:background="@color/secondaryColor"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/property_detail_tv_description" />
 
     <com.google.android.material.textview.MaterialTextView
@@ -148,38 +157,40 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="ffffffffff"
-        app:layout_constraintTop_toBottomOf="@id/property_detail_realEstateLocationTitle"
-        app:layout_constraintStart_toStartOf="@id/property_detail_realEstateLocationTitle"/>
+        app:layout_constraintStart_toStartOf="@id/property_detail_realEstateLocationTitle"
+        app:layout_constraintTop_toBottomOf="@id/property_detail_realEstateLocationTitle" />
+
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/property_detail_flatNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="ffffffffff"
-        app:layout_constraintTop_toBottomOf="@id/property_detail_address"
-        app:layout_constraintStart_toStartOf="@id/property_detail_realEstateLocationTitle"/>
+        app:layout_constraintStart_toStartOf="@id/property_detail_realEstateLocationTitle"
+        app:layout_constraintTop_toBottomOf="@id/property_detail_address" />
+
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/property_detail_town"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="ffffffffff"
-        app:layout_constraintTop_toBottomOf="@id/property_detail_flatNumber"
-        app:layout_constraintStart_toStartOf="@id/property_detail_realEstateLocationTitle"/>
+        app:layout_constraintStart_toStartOf="@id/property_detail_realEstateLocationTitle"
+        app:layout_constraintTop_toBottomOf="@id/property_detail_flatNumber" />
+
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/property_detail_zipcode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="ffffffffff"
-        app:layout_constraintTop_toBottomOf="@id/property_detail_town"
-        app:layout_constraintStart_toStartOf="@id/property_detail_realEstateLocationTitle"/>
+        app:layout_constraintStart_toStartOf="@id/property_detail_realEstateLocationTitle"
+        app:layout_constraintTop_toBottomOf="@id/property_detail_town" />
+
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/property_detail_country"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="ffffffffff"
-        app:layout_constraintTop_toBottomOf="@id/property_detail_zipcode"
-        app:layout_constraintStart_toStartOf="@id/property_detail_realEstateLocationTitle"/>
-
-
+        app:layout_constraintStart_toStartOf="@id/property_detail_realEstateLocationTitle"
+        app:layout_constraintTop_toBottomOf="@id/property_detail_zipcode" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

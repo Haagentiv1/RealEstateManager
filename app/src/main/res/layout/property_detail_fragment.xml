@@ -26,6 +26,15 @@
         app:layout_constraintTop_toBottomOf="@id/property_detail_tv_title_pictureRv"
         tools:listitem="@layout/property_detail_item_fragment" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/property_detail_btn_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="20dp"
+        android:src="@drawable/ic_baseline_edit_24"/>
+
     <androidx.core.widget.NestedScrollView
         android:id="@+id/property_detail_scroll_view"
         android:layout_width="match_parent"
@@ -198,7 +207,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/property_detail_country"
                 app:layout_constraintVertical_bias="0.042" />
-
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

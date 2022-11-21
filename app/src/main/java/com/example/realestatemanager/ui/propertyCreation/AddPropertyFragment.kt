@@ -39,7 +39,7 @@ class AddPropertyFragment : Fragment() {
     private var _binding: AddPropertyFragmentBinding? = null
     private val binding get() = _binding!!
     private val viewModel by viewModels<AddPropertyViewModel>()
-    lateinit var actualPictureFilePath: String
+    private lateinit var actualPictureFilePath: String
     private lateinit var poiDialogBuilder: AlertDialog.Builder
 
 
@@ -56,9 +56,46 @@ class AddPropertyFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         val recyclerView: RecyclerView = binding.addPropertyRvPictures
         val adapter = PictureAdapter()
         recyclerView.adapter = adapter
+
+        viewModel.pictureListLiveData.observe(viewLifecycleOwner) {
+            pictureList = it
+            adapter.submitList(it)
+        }
+
+        if (arguments?.getLong("propertyId") != (-1).toLong()) {
+            viewModel.getPropertyById(requireArguments().getLong("propertyId"))
+                .observe(viewLifecycleOwner) {
+                    lifecycleScope.launch {
+                        it?.let {
+                            binding.addPropertyTvType.setText(it.type)
+                            binding.addPropertyEtPrice.setText(it.price.toString())
+                            binding.addPropertyEtSurface.setText(it.squareMeter.toString())
+                            binding.addPropertyEtNumberOfRoom.setText(it.numberOfRooms.toString())
+                            binding.addPropertyEtNumberOfBedRoom.setText(it.numberOfBedRooms.toString())
+                            binding.addPropertyEtNumberOfBathRoom.setText(it.numberOfBathRooms.toString())
+                            binding.addPropertyEtDesc.setText(it.description)
+                            binding.addPropertyEtAddress.setText(it.location[0])
+                            binding.addPropertyEtTown.setText(it.location[1])
+                            binding.addPropertyEtState.setText(it.location[2])
+                            binding.addPropertyEtZipcode.setText(it.location[3])
+                            binding.addPropertyEtCountry.setText(it.location[4])
+                            binding.addPropertyEtPoi.setText(it.poi.toString())
+                            binding.addPropertyEtEntryDate.setText(it.entryDate)
+                            binding.addPropertyEtSaleDate.setText(it.saleDate)
+                            binding.addPropertyEtManager.setText(it.estateManagerName)
+                            viewModel.setPicturesList(it.pictures)
+                        }
+                    }
+                }
+
+        }
+
+
+
         poiDialogBuilder = AlertDialog.Builder(requireContext())
 
         binding.addPropertyTvType.text
@@ -100,11 +137,11 @@ class AddPropertyFragment : Fragment() {
                 val name = Calendar.getInstance().timeInMillis.toString()
                 val inputStream = context?.contentResolver?.openInputStream(it!!)
                 val bmp = BitmapFactory.decodeStream(inputStream)
-                val isSaved = savePhotoToInternalStorage(name,bmp)
-                if (isSaved){
+                val isSaved = savePhotoToInternalStorage(name, bmp)
+                if (isSaved) {
                     retrievePictureFromFile(name)
-                }else{
-                    Log.e("tete","ewgwewewge")
+                } else {
+                    Log.e("tete", "ewgwewewge")
                 }
 
             }
@@ -123,7 +160,7 @@ class AddPropertyFragment : Fragment() {
                     if (isSaved) {
                         retrievePictureFromFile(name)
                     } else {
-                        Log.e("tete","ewgwewewge")
+                        Log.e("tete", "ewgwewewge")
                     }
                 }
 
@@ -191,9 +228,6 @@ class AddPropertyFragment : Fragment() {
 
     }
 
-    private fun getStatus(): Boolean {
-        return binding.addPropertyEtSaleDate.text.isNullOrBlank()
-    }
 
     private fun getPoi(): List<String> {
         val poi = binding.addPropertyEtPoi.text.toString()

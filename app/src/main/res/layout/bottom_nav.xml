@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.bottomnavigation.BottomNavigationView xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/Widget.MaterialComponents.BottomNavigationView.Colored"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/bottom_nav_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:menu="@menu/bottom_app_bar_menu"
     android:layout_gravity="bottom"
-    app:itemIconTint="@color/primaryColor"
-    app:itemTextColor="@color/primaryColor">
+    app:itemIconTint="@color/secondaryDarkColor"
+    app:itemTextColor="@color/secondaryDarkColor">
 
 </com.google.android.material.bottomnavigation.BottomNavigationView>
