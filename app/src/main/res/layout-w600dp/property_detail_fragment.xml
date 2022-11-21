@@ -9,6 +9,13 @@
         android:id="@+id/property_detail_tv_title_pictureRv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="Media"
+        android:textStyle="bold"
+        android:textSize="24sp"
+        android:layout_marginTop="30dp"
+        android:gravity="center_horizontal"
+        android:fontFamily="@font/roboto_slab"
+        android:textColor="@color/secondaryDarkColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -27,6 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
+        app:layout_goneMarginTop="20dp"
         android:orientation="horizontal"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,6 +47,13 @@
         android:id="@+id/property_detail_tv_title_tvDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Description"
+        android:textSize="24sp"
+        android:fontFamily="@font/roboto_slab"
+        android:textColor="@color/secondaryDarkColor"
+        android:gravity="center_horizontal"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/property_detail_picture_rv" />
@@ -47,19 +62,37 @@
         android:id="@+id/property_detail_tv_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_slab"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/property_detail_tv_title_tvDescription" />
 
     <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/property_detail_tv_property_info_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/property_detail_tv_description"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Property Info"
+        android:textColor="@color/secondaryDarkColor"
+        android:fontFamily="@font/roboto_slab"
+        android:textStyle="bold"
+        android:textSize="24sp"
+        android:gravity="center_horizontal"/>
+
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/property_detail_tv_squareMeter_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="sdsdsds"
+        android:layout_marginTop="20dp"
+        android:text="Surface"
+        android:fontFamily="@font/roboto_slab"
+
         app:drawableStartCompat="@drawable/ic_outline_square_meter_24"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/property_detail_tv_description" />
+        app:layout_constraintTop_toBottomOf="@+id/property_detail_tv_property_info_title" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/property_detail_tv_squareMeter_data"
@@ -67,6 +100,7 @@
         android:layout_height="0dp"
         android:layout_marginStart="4dp"
         android:text="sdsdsds"
+        android:fontFamily="@font/roboto_slab"
         app:layout_constraintBottom_toBottomOf="@+id/property_detail_tv_squareMeter_title"
         app:layout_constraintStart_toEndOf="@+id/property_detail_tv_squareMeter_title"
         app:layout_constraintTop_toTopOf="@+id/property_detail_tv_squareMeter_title"
@@ -77,7 +111,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="ssssssss"
+        android:text="Rooms"
+        android:fontFamily="@font/roboto_slab"
         app:drawableStartCompat="@drawable/ic_outline_house_24"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/property_detail_tv_squareMeter_title" />
@@ -88,6 +123,7 @@
         android:layout_height="0dp"
         android:layout_marginStart="4dp"
         android:text="dweewwewewe"
+        android:fontFamily="@font/roboto_slab"
         app:layout_constraintBottom_toBottomOf="@+id/property_detail_numberOfRooms_title"
         app:layout_constraintStart_toEndOf="@+id/property_detail_numberOfRooms_title"
         app:layout_constraintTop_toTopOf="@+id/property_detail_numberOfRooms_title"
@@ -98,7 +134,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="numberofbedrooms : "
+        android:text="BedRooms"
+        android:fontFamily="@font/roboto_slab"
         app:drawableStartCompat="@drawable/ic_outline_bed_24"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/property_detail_numberOfRooms_title" />
@@ -109,6 +146,7 @@
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:text="wefwwefewfwef"
+        android:fontFamily="@font/roboto_slab"
         app:layout_constraintBottom_toBottomOf="@id/property_detail_numberOfBedRooms_title"
         app:layout_constraintStart_toEndOf="@id/property_detail_numberOfBedRooms_title"
         app:layout_constraintTop_toTopOf="@id/property_detail_numberOfBedRooms_title"
@@ -119,7 +157,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="numberofbtathrooms : "
+        android:text="BathRooms"
+        android:fontFamily="@font/roboto_slab"
         app:drawableStartCompat="@drawable/ic_outline_bathroom_24"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/property_detail_numberOfBedRooms_title" />
@@ -129,6 +168,7 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:text="wweewgwgewge"
+        android:fontFamily="@font/roboto_slab"
         app:layout_constraintBottom_toBottomOf="@id/property_detail_numberOfBathRooms_title"
         app:layout_constraintStart_toEndOf="@id/property_detail_numberOfBathRooms_title"
         app:layout_constraintTop_toTopOf="@id/property_detail_numberOfBathRooms_title" />
@@ -137,25 +177,29 @@
         android:id="@+id/property_detail_mapStaticContainer_iv"
         android:layout_width="200dp"
         android:layout_height="200dp"
+        android:layout_marginTop="20dp"
         android:background="@color/secondaryColor"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/property_detail_tv_description" />
+        app:layout_constraintTop_toBottomOf="@+id/property_detail_tv_property_info_title" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/property_detail_realEstateLocationTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:fontFamily="@font/roboto_slab"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="120dp"
         android:text="Location"
         app:drawableStartCompat="@drawable/ic_outline_location_on_24"
         app:layout_constraintEnd_toStartOf="@+id/property_detail_mapStaticContainer_iv"
-        app:layout_constraintTop_toBottomOf="@+id/property_detail_tv_description" />
+        app:layout_constraintTop_toBottomOf="@+id/property_detail_tv_property_info_title" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/property_detail_address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_slab"
         android:text="ffffffffff"
         app:layout_constraintStart_toStartOf="@id/property_detail_realEstateLocationTitle"
         app:layout_constraintTop_toBottomOf="@id/property_detail_realEstateLocationTitle" />
@@ -164,6 +208,7 @@
         android:id="@+id/property_detail_flatNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_slab"
         android:text="ffffffffff"
         app:layout_constraintStart_toStartOf="@id/property_detail_realEstateLocationTitle"
         app:layout_constraintTop_toBottomOf="@id/property_detail_address" />
@@ -172,6 +217,7 @@
         android:id="@+id/property_detail_town"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_slab"
         android:text="ffffffffff"
         app:layout_constraintStart_toStartOf="@id/property_detail_realEstateLocationTitle"
         app:layout_constraintTop_toBottomOf="@id/property_detail_flatNumber" />
@@ -180,6 +226,7 @@
         android:id="@+id/property_detail_zipcode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_slab"
         android:text="ffffffffff"
         app:layout_constraintStart_toStartOf="@id/property_detail_realEstateLocationTitle"
         app:layout_constraintTop_toBottomOf="@id/property_detail_town" />
@@ -188,6 +235,7 @@
         android:id="@+id/property_detail_country"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_slab"
         android:text="ffffffffff"
         app:layout_constraintStart_toStartOf="@id/property_detail_realEstateLocationTitle"
         app:layout_constraintTop_toBottomOf="@id/property_detail_zipcode" />
