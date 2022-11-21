@@ -1,17 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/loan_il_price"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/bottom_loan_title"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="40dp"
+        android:layout_margin="20dp"
+        android:hint="price"
+        app:layout_constraintBottom_toTopOf="@+id/loan_il_taxe"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/loan_et_price"
+            android:fontFamily="@font/roboto_slab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/loan_il_taxe"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_marginTop="20dp"
+        android:hint="taux"
+        app:layout_constraintBottom_toTopOf="@+id/loan_il_apport"
+        app:layout_constraintEnd_toEndOf="@+id/loan_il_price"
+        app:layout_constraintStart_toStartOf="@+id/loan_il_price"
+        app:layout_constraintTop_toBottomOf="@+id/loan_il_price">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/loan_et_taxe"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_slab"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/loan_il_apport"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_marginTop="21dp"
+
+        android:hint="apport"
+        app:layout_constraintBottom_toTopOf="@+id/loan_il_time"
+        app:layout_constraintEnd_toEndOf="@+id/loan_il_taxe"
+        app:layout_constraintStart_toStartOf="@+id/loan_il_taxe"
+        app:layout_constraintTop_toBottomOf="@+id/loan_il_taxe">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/loan_et_apport"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_slab"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/loan_il_time"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_marginTop="20dp"
+        android:hint="time"
+        app:layout_constraintBottom_toTopOf="@+id/loan_tv_loan_result"
+        app:layout_constraintEnd_toEndOf="@+id/loan_il_apport"
+        app:layout_constraintStart_toStartOf="@+id/loan_il_apport"
+        app:layout_constraintTop_toBottomOf="@+id/loan_il_apport">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/loan_et_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_slab"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/loan_tv_loan_result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="21dp"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="@font/roboto_slab"
+        app:layout_constraintBottom_toTopOf="@+id/loan_btn_sum"
+        app:layout_constraintEnd_toEndOf="@+id/loan_il_time"
+        app:layout_constraintStart_toStartOf="@+id/loan_il_time"
+        app:layout_constraintTop_toBottomOf="@+id/loan_il_time" />
+
+    <Button
+        android:id="@+id/loan_btn_sum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="21dp"
+        android:layout_marginBottom="30dp"
+        android:text="calcul"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/loan_tv_loan_result"
+        app:layout_constraintStart_toStartOf="@+id/loan_tv_loan_result"
+        app:layout_constraintTop_toBottomOf="@+id/loan_tv_loan_result" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

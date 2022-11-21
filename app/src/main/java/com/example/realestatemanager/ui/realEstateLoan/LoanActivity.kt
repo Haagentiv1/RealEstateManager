@@ -2,6 +2,7 @@ package com.example.realestatemanager.ui.realEstateLoan
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModel
 import com.example.realestatemanager.databinding.LoanActivityBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -10,6 +11,8 @@ class LoanActivity : AppCompatActivity() {
 
     private var _binding: LoanActivityBinding? = null
     private val binding get() = _binding!!
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
