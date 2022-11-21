@@ -98,7 +98,6 @@ class AddPropertyFragment : Fragment() {
 
         poiDialogBuilder = AlertDialog.Builder(requireContext())
 
-        binding.addPropertyTvType.text
 
         viewModel.pointOfInterestLiveData.observe(viewLifecycleOwner) {
             createPoiDialog(it)
@@ -118,9 +117,17 @@ class AddPropertyFragment : Fragment() {
         }
 
 
-        val listOfType = Type.values().map { it.name }.toTypedArray()
 
-        binding.addPropertyTvType.setSimpleItems(listOfType)
+
+        binding.addPropertyTvType.setOnClickListener {
+            binding.addPropertyTvType.setSimpleItems(Type.values().map { it.name }.toTypedArray())
+        }
+
+
+
+        binding.addPropertyTvType.setSimpleItems(Type.values().map { it.name }.toTypedArray())
+
+
 
 
 
