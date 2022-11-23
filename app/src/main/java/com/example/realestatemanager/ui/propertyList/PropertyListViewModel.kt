@@ -2,17 +2,13 @@ package com.example.realestatemanager.ui.propertyList
 
 import android.util.Log
 import androidx.lifecycle.*
-import com.example.realestatemanager.data.local.model.PointOfInterest
 import com.example.realestatemanager.data.local.model.Property
 import com.example.realestatemanager.data.local.repositories.CurrentPropertyIdRepository
 import com.example.realestatemanager.data.local.repositories.PointOfInterestRepository
 import com.example.realestatemanager.data.local.repositories.PropertyRepository
-import com.example.realestatemanager.ui.utils.Type
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -84,43 +80,45 @@ class PropertyListViewModel @Inject constructor(
                         it.pictures[0].first,
                         it.price,
                         it.type,
-                        it.location[2]
+                        it.location[1]
                     )
                 }
             }.asLiveData()
+    var pricePredicate = { value: Property ,minMax : Pair<Long,Long> -> value.price >= minMax.first && value.price <= minMax.second }
+    private val typePredicate = { value : Property, list : List<String> -> list.contains(value.type)}
+    private val poiPredicate = {value : Property,list : List<String> -> value.poi!!.containsAll(list)}
+    private val townPredicate = {value : Property, list : List<String> -> list.contains(value.location[1].lowercase()) }
+    var surfacePredicate = { value: Property, minMax : Pair<Float,Float> -> value.squareMeter >= minMax.first && value.squareMeter <= minMax.second }
+    private val numberOfPicturesMin = {value : Property, numberOfPictureMin : Int -> value.pictures.size >= numberOfPictureMin }
 
-    fun filtered(list: List<String>): LiveData<List<PropertyListItemViewState>> = liveData (context = viewModelScope.coroutineContext + Dispatchers.IO) {
-        Log.e("test", list.toString())
-        Log.e("testType",Type.values().toList().toString())
+    fun filtered(
+        list: List<String>,
+        poi: List<String>,
+        town: List<String>,
+        minMax: Pair<Long, Long>,
+        surfaceFilter: Pair<Float, Float>,
+        picturesMin: Int
+    ): LiveData<List<PropertyListItemViewState>> = liveData (context = viewModelScope.coroutineContext + Dispatchers.IO) {
+        listOfPoi = poi.ifEmpty { poiLiveData.value!! }
+        var listOfTown = town.ifEmpty { propertiesTown.value!! }
+        listOfTown = listOfTown.map { it.trim() }
+        Log.e("testPrice",minMax.first.toString())
         val data = propertyList.map { properties ->
             properties.filter { property ->
-                list.contains(property.type)
+                pricePredicate.invoke(property,minMax).and(typePredicate.invoke(property,list)).and(poiPredicate.invoke(property,poi)).and(surfacePredicate.invoke(property,surfaceFilter)).and(numberOfPicturesMin.invoke(property,picturesMin))
             }.map {
                 PropertyListItemViewState(
                     it.id!!,
                     it.pictures[0].first,
                     it.price,
                     it.type,
-                    it.location[2]
+                    it.location[1]
                 )
             }
         }.asLiveData()
         emitSource(data)
     }
 
-    val propertyLiveData1: LiveData<List<PropertyListItemViewState>> =
-        propertyRepository.getProperties()
-            .map { properties ->
-                properties.map {
-                    PropertyListItemViewState(
-                        it.id!!,
-                        it.pictures[0].first,
-                        it.price,
-                        it.type,
-                        it.location[2]
-                    )
-                }
-            }.asLiveData()
 
 
     lateinit var lisT: List<String>
@@ -130,47 +128,9 @@ class PropertyListViewModel @Inject constructor(
     }
 
 
-    private var typePredicate = { value: String -> lisT.contains(value) }
-
-    var pricePredicate = { value: Long -> listOfPrice[0] <= value && listOfPrice[1] >= value }
-
-    var surfacePredicate =
-        { value: Float -> listOfSurface[0] <= value && listOfSurface[1] >= value }
-
-    var poiPredicate = { value: List<String> -> value.any(listOfPoi::contains) }
 
 
-    fun getFilteredList(): LiveData<List<PropertyListItemViewState>> {
-        return propertyRepository.getProperties().map { properties ->
-            properties.filter { property ->
-                typePredicate.invoke(property.type).and(pricePredicate.invoke(property.price))
-            }.map {
-                PropertyListItemViewState(
-                    it.id!!,
-                    it.pictures[0].first,
-                    it.price,
-                    it.type,
-                    it.location[1]
-                )
-            }
-        }.asLiveData()
-    }
 
-
-    val propertyLiveDataFiltered: LiveData<List<PropertyListItemViewState>> =
-        propertyRepository.getProperties().map { properties ->
-            properties.filter { property ->
-                typePredicate.invoke(property.type).and(pricePredicate.invoke(property.price))
-            }.map {
-                PropertyListItemViewState(
-                    it.id!!,
-                    it.pictures[0].first,
-                    it.price,
-                    it.type,
-                    it.location[1]
-                )
-            }
-        }.asLiveData()
 
 
     fun onPropertyClicked(id: Long) {

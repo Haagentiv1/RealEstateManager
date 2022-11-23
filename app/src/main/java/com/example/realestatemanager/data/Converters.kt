@@ -6,6 +6,7 @@ import androidx.room.TypeConverters
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import java.util.*
 
 object Converters {
 
@@ -21,5 +22,15 @@ object Converters {
 
     @TypeConverter
     fun fromStringToListOfPair(value : String) = Json.decodeFromString<List<Pair<String,String>>>(value)
+
+    @TypeConverter
+    fun fromTimestamp(value: Long?): Date? {
+        return value?.let { Date(it) }
+    }
+
+    @TypeConverter
+    fun dateToTimestamp(date: Date?): Long? {
+        return date?.time?.toLong()
+    }
 }
 

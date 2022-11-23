@@ -6,12 +6,21 @@
     android:layout_height="match_parent"
     android:animateLayoutChanges="true">
 
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/filter_scroll_view"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/fragment_list_rl_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="NotSibling">
     <LinearLayout
         android:id="@+id/fragment_list_rl_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -35,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:focusable="false"
-            android:hint="Type">
+            android:hint="Type filter">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/list_filter_tv_type_selection_dialog"
@@ -51,7 +60,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:hint="Town"
+            android:hint="Town filter"
             app:endIconMode="dropdown_menu"
             app:hintEnabled="true">
 
@@ -62,7 +71,14 @@
                 android:inputType="none" />
         </com.google.android.material.textfield.TextInputLayout>
 
-
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Price Filter"
+            android:gravity="center"
+            android:fontFamily="@font/roboto_slab"
+            android:textColor="@color/secondaryDarkColor"/>
         <com.google.android.material.slider.RangeSlider
             android:id="@+id/filter_rs_price"
             android:layout_width="match_parent"
@@ -70,12 +86,30 @@
             android:layout_marginTop="10dp"
             app:minSeparation="10dp" />
 
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Surface Filter"
+            android:gravity="center"
+            android:fontFamily="@font/roboto_slab"
+            android:textColor="@color/secondaryDarkColor"/>
+
         <com.google.android.material.slider.RangeSlider
             android:id="@+id/filter_rs_surface"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             app:minSeparation="10dp" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Sell since Filter"
+            android:gravity="center"
+            android:fontFamily="@font/roboto_slab"
+            android:textColor="@color/secondaryDarkColor"/>
 
         <com.google.android.material.slider.Slider
             android:id="@+id/filter_rs_month"
@@ -86,6 +120,26 @@
             android:valueTo="12"
             android:stepSize="1"
             app:minSeparation="10dp" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Number of picture Filter"
+            android:gravity="center"
+            android:fontFamily="@font/roboto_slab"
+            android:textColor="@color/secondaryDarkColor"/>
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/filter_rs_number_of_pictures"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:valueFrom="0"
+            android:valueTo="5"
+            android:stepSize="1"
+            app:minSeparation="10dp" />
+
 
 
         <com.google.android.material.textfield.TextInputLayout
@@ -118,6 +172,8 @@
 
     </LinearLayout>
 
+    </androidx.core.widget.NestedScrollView>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/property_list_fragment_rv"
         android:layout_width="match_parent"
@@ -126,7 +182,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fragment_list_rl_container"
+        app:layout_constraintTop_toBottomOf="@id/filter_scroll_view"
         tools:listitem="@layout/property_item_list_fragment" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
