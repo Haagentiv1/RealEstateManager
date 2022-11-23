@@ -2,7 +2,6 @@ package com.example.realestatemanager.ui.propertyList
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.text.method.DateTimeKeyListener
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -13,15 +12,11 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.example.realestatemanager.databinding.PropertyListFragmentBinding
 import com.example.realestatemanager.ui.utils.Type
-import com.example.realestatemanager.ui.utils.Utils
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.DateFormat
 import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.Month
 import java.util.Calendar
 import java.util.Calendar.MONTH
-import java.util.Date
 import java.util.Locale
 import kotlin.math.roundToInt
 
@@ -173,10 +168,17 @@ class PropertyListFragment : Fragment() {
         ) { _, index, check ->
             if (check) {
                 poiCheck.add(list[index])
+            }else{
+                poiCheck.remove(list[index])
             }
             Log.e("Poi", poiCheck.toString())
             binding.listFilterTvPoiSelectionDialog.setText(poiCheck.joinToString(","))
         }
+
+        poiDialogBuilder.setPositiveButton("ok"){dialog, which ->
+            dialog.cancel()
+        }
+
         poiDialogBuilder.create()
     }
 
@@ -189,17 +191,17 @@ class PropertyListFragment : Fragment() {
         ) { _, index, check ->
             if (check) {
                 typesChecked.add(types[index])
+            }else{
+                typesChecked.remove(types[index])
             }
 
             binding.listFilterTvTypeSelectionDialog.setText(typesChecked.joinToString(","))
         }
 
-        typeDialogBuilder.setPositiveButton("Ok") { dialog, which ->
-            dialog.dismiss()
-        }
-        typeDialogBuilder.setNegativeButton("Reset") { dialog, which ->
+        typeDialogBuilder.setPositiveButton("Ok") { dialog, _ ->
             dialog.cancel()
         }
+
         typeDialogBuilder.create()
     }
 
