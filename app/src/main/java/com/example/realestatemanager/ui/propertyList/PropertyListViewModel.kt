@@ -105,7 +105,7 @@ class PropertyListViewModel @Inject constructor(
         Log.e("testPrice",minMax.first.toString())
         val data = propertyList.map { properties ->
             properties.filter { property ->
-                pricePredicate.invoke(property,minMax).and(typePredicate.invoke(property,list)).and(poiPredicate.invoke(property,poi)).and(surfacePredicate.invoke(property,surfaceFilter)).and(numberOfPicturesMin.invoke(property,picturesMin))
+                pricePredicate.invoke(property,minMax).and(typePredicate.invoke(property,list)).and(poiPredicate.invoke(property,poi)).and(surfacePredicate.invoke(property,surfaceFilter)).and(numberOfPicturesMin.invoke(property,picturesMin)).and(townPredicate.invoke(property,listOfTown))
             }.map {
                 PropertyListItemViewState(
                     it.id!!,
