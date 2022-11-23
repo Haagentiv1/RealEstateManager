@@ -11,61 +11,109 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
-        android:visibility="gone">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/list_filter_tv_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/roboto_slab"
             android:gravity="center"
-
             android:text="Filter"
-            />
+            android:textColor="@color/secondaryDarkColor"
+            android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/list_filter_tv_type_selection_dialog"
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/list_filter_il_type_selection_dialog"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:hint="Select Type"/>
+            android:layout_margin="10dp"
+            android:focusable="false"
+            android:hint="Type">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/list_filter_tv_type_selection_dialog"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:inputType="none" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/list_filter_il_dropdown_town_list"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="Town"
+            app:endIconMode="dropdown_menu"
+            app:hintEnabled="true">
+
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                android:id="@+id/list_filter_et_dropdown_town_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none" />
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <com.google.android.material.slider.RangeSlider
             android:id="@+id/filter_rs_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            app:minSeparation="10dp"
-            android:valueFrom="0"
-            android:valueTo="10000000"/>
+            app:minSeparation="10dp" />
 
         <com.google.android.material.slider.RangeSlider
             android:id="@+id/filter_rs_surface"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            app:minSeparation="10dp"
-            android:valueFrom="0"
-            android:valueTo="1000"/>
+            app:minSeparation="10dp" />
 
-        <TextView
-            android:id="@+id/list_filter_tv_poi_selection_dialog"
+        <com.google.android.material.slider.Slider
+            android:id="@+id/filter_rs_month"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:hint="Select Poi"/>
+            android:valueFrom="0"
+            android:valueTo="12"
+            android:stepSize="1"
+            app:minSeparation="10dp" />
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/list_filter_il_poi_dialog"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:focusable="false"
+            android:hint="Select Poi"
+            app:hintEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/list_filter_tv_poi_selection_dialog"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:inputType="none" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:layout_marginTop="10dp"
             android:id="@+id/filter_btn_filter_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="filter"
-            android:layout_marginBottom="20dp" />
-
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
+            android:text="filter" />
 
 
     </LinearLayout>
@@ -74,20 +122,20 @@
         android:id="@+id/property_list_fragment_rv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/fragment_list_rl_container"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragment_list_rl_container"
         tools:listitem="@layout/property_item_list_fragment" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/property_list_btn_filter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="15dp"
         android:src="@drawable/ic_outline_filter_list_24"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="15dp"/>
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
