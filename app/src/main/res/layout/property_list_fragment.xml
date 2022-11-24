@@ -88,6 +88,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:valueFrom="0.0"
+            android:valueTo="1.0"
             app:minSeparation="10dp" />
 
         <com.google.android.material.textview.MaterialTextView
@@ -103,6 +105,8 @@
             android:id="@+id/filter_rs_surface"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:valueFrom="0.0"
+            android:valueTo="1.0"
             android:layout_marginTop="10dp"
             app:minSeparation="10dp" />
 

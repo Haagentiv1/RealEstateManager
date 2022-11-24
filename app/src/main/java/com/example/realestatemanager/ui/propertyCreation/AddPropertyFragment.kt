@@ -84,8 +84,8 @@ class AddPropertyFragment : Fragment() {
                             binding.addPropertyEtZipcode.setText(it.location[3])
                             binding.addPropertyEtCountry.setText(it.location[4])
                             binding.addPropertyEtPoi.setText(it.poi.toString())
-                            binding.addPropertyEtEntryDate.setText(it.entryDate)
-                            binding.addPropertyEtSaleDate.setText(it.saleDate)
+                            binding.addPropertyEtEntryDate.setText(it.entryDate.toString())
+                            binding.addPropertyEtSaleDate.setText(it.saleDate.toString())
                             binding.addPropertyEtManager.setText(it.estateManagerName)
                             viewModel.setPicturesList(it.pictures)
                         }
@@ -208,8 +208,8 @@ class AddPropertyFragment : Fragment() {
                                 poi = getPoi(),
                                 status = binding.addPropertyEtSaleDate.text.isNullOrBlank(),
                                 pictures = listOf(),
-                                entryDate = binding.addPropertyEtEntryDate.text.toString(),
-                                saleDate = binding.addPropertyEtSaleDate.text.toString(),
+                                entryDate = "",
+                                saleDate = "",
                                 estateManagerName = binding.addPropertyEtManager.text.toString()
                             )
                         )

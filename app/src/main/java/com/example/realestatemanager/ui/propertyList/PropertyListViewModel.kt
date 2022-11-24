@@ -22,9 +22,6 @@ class PropertyListViewModel @Inject constructor(
     ViewModel() {
 
 
-    private var listOfType = listOf("Manor")
-    var listOfPrice = listOf(1000000, 100000000)
-    var listOfSurface = listOf<Float>()
     var listOfPoi = listOf<String>()
 
 
@@ -33,28 +30,29 @@ class PropertyListViewModel @Inject constructor(
     val propertyList: Flow<List<Property>> =
         propertyRepository.getProperties()
 
-    val poiLiveData : LiveData<List<String>> = pointOfInterestRepository.getPointOfInterest().map { listOfPoi ->
-        listOfPoi.map {
-            it.name
-        }
-    }.asLiveData()
+    val poiLiveData: LiveData<List<String>> =
+        pointOfInterestRepository.getPointOfInterest().map { listOfPoi ->
+            listOfPoi.map {
+                it.name
+            }
+        }.asLiveData()
 
-    val surface : LiveData<Pair<Float,Float>> =
+    val surface: LiveData<Pair<Float?, Float?>> =
         propertyList.map { properties ->
             properties.map {
                 it.squareMeter
             }
         }.map {
-            Pair(first = it.min(),second = it.max())
+            Pair(first = it.minOrNull(), second = it.maxOrNull())
         }.asLiveData()
 
-    val priceMinMax : LiveData<Pair<Long,Long>> =
+    val priceMinMax: LiveData<Pair<Long?, Long?>> =
         propertyList.map { properties ->
             properties.map {
                 it.price
             }
         }.map {
-            Pair(first = it.min(), second = it.max())
+            Pair(first = it.minOrNull(), second = it.maxOrNull())
         }.asLiveData()
 
 
@@ -62,13 +60,12 @@ class PropertyListViewModel @Inject constructor(
         filterLiveData.value = filter
     }
 
-    val propertiesTown : LiveData<List<String>>  = propertyList.map { properties ->
+    val propertiesTown: LiveData<List<String>> = propertyList.map { properties ->
 
         properties.map {
             it.location[1].trim().lowercase()
         }.distinct()
     }.asLiveData()
-
 
 
     val propertyLiveData: LiveData<List<PropertyListItemViewState>> =
@@ -84,12 +81,20 @@ class PropertyListViewModel @Inject constructor(
                     )
                 }
             }.asLiveData()
-    var pricePredicate = { value: Property ,minMax : Pair<Long,Long> -> value.price >= minMax.first && value.price <= minMax.second }
-    private val typePredicate = { value : Property, list : List<String> -> list.contains(value.type)}
-    private val poiPredicate = {value : Property,list : List<String> -> value.poi!!.containsAll(list)}
-    private val townPredicate = {value : Property, list : List<String> -> list.contains(value.location[1].lowercase()) }
-    var surfacePredicate = { value: Property, minMax : Pair<Float,Float> -> value.squareMeter >= minMax.first && value.squareMeter <= minMax.second }
-    private val numberOfPicturesMin = {value : Property, numberOfPictureMin : Int -> value.pictures.size >= numberOfPictureMin }
+
+    val pricePredicate =
+        { value: Property, minMax: Pair<Long, Long> -> value.price >= minMax.first && value.price <= minMax.second }
+    val typePredicate = { value: Property, list: List<String> -> list.contains(value.type) }
+    val poiPredicate =
+        { value: Property, list: List<String> -> value.poi!!.containsAll(list) }
+    val townPredicate =
+        { value: Property, list: List<String> -> list.contains(value.location[1].lowercase()) }
+    val surfacePredicate =
+        { value: Property, minMax: Pair<Float, Float> -> value.squareMeter >= minMax.first && value.squareMeter <= minMax.second }
+    val numberOfPicturesMin =
+        { value: Property, numberOfPictureMin: Int -> value.pictures.size >= numberOfPictureMin }
+
+
 
     fun filtered(
         list: List<String>,
@@ -98,39 +103,34 @@ class PropertyListViewModel @Inject constructor(
         minMax: Pair<Long, Long>,
         surfaceFilter: Pair<Float, Float>,
         picturesMin: Int
-    ): LiveData<List<PropertyListItemViewState>> = liveData (context = viewModelScope.coroutineContext + Dispatchers.IO) {
-        listOfPoi = poi.ifEmpty { poiLiveData.value!! }
-        var listOfTown = town.ifEmpty { propertiesTown.value!! }
-        listOfTown = listOfTown.map { it.trim() }
-        Log.e("testPrice",minMax.first.toString())
-        val data = propertyList.map { properties ->
-            properties.filter { property ->
-                pricePredicate.invoke(property,minMax).and(typePredicate.invoke(property,list)).and(poiPredicate.invoke(property,poi)).and(surfacePredicate.invoke(property,surfaceFilter)).and(numberOfPicturesMin.invoke(property,picturesMin)).and(townPredicate.invoke(property,listOfTown))
-            }.map {
-                PropertyListItemViewState(
-                    it.id!!,
-                    it.pictures[0].first,
-                    it.price,
-                    it.type,
-                    it.location[1]
-                )
-            }
-        }.asLiveData()
-        emitSource(data)
-    }
+    ): LiveData<List<PropertyListItemViewState>> =
+        liveData(context = viewModelScope.coroutineContext + Dispatchers.IO) {
 
 
-
-    lateinit var lisT: List<String>
-
-    fun setTypeFilter(list: List<String>) {
-        lisT = list
-    }
-
-
-
-
-
+            listOfPoi = poi.ifEmpty { poiLiveData.value!! }
+            var listOfTown = town.ifEmpty { propertiesTown.value!! }
+            listOfTown = listOfTown.map { it.trim() }
+            Log.e("testPrice", minMax.first.toString())
+            val data = propertyList.map { properties ->
+                properties.filter { property ->
+                    pricePredicate.invoke(property, minMax)
+                        .and(typePredicate.invoke(property, list))
+                        .and(poiPredicate.invoke(property, poi))
+                        .and(surfacePredicate.invoke(property, surfaceFilter))
+                        .and(numberOfPicturesMin.invoke(property, picturesMin))
+                        .and(townPredicate.invoke(property, listOfTown))
+                }.map {
+                    PropertyListItemViewState(
+                        it.id!!,
+                        it.pictures[0].first,
+                        it.price,
+                        it.type,
+                        it.location[1]
+                    )
+                }
+            }.asLiveData()
+            emitSource(data)
+        }
 
 
     fun onPropertyClicked(id: Long) {

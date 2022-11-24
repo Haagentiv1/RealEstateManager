@@ -52,7 +52,7 @@ class PropertyListFragment : Fragment() {
 
         recyclerView.adapter = adapter
         viewModel.propertyLiveData.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
+                adapter.submitList(it)
         }
         viewModel.setFilterBoolean(false)
 
@@ -99,17 +99,25 @@ class PropertyListFragment : Fragment() {
             poiDialogBuilder.show()
         }
 
-        viewModel.priceMinMax.observe(viewLifecycleOwner) {
-            Log.e("test", "${it.first} and ${it.second}")
-            binding.filterRsPrice.valueFrom = it.first.toFloat()
-            binding.filterRsPrice.valueTo = it.second.toFloat()
-            binding.filterRsPrice.setValues(it.first.toFloat(), it.second.toFloat())
-        }
-        viewModel.surface.observe(viewLifecycleOwner) {
-            binding.filterRsSurface.valueFrom = it.first
-            binding.filterRsSurface.valueTo = it.second
-            binding.filterRsSurface.setValues(it.first, it.second)
-        }
+      viewModel.priceMinMax.observe(viewLifecycleOwner) {
+          if (it.first != null && it.second != null) {
+              binding.filterRsPrice.valueFrom =  it.first!!.toFloat()
+              binding.filterRsPrice.valueTo =  it.second!!.toFloat()
+              binding.filterRsPrice.setValues(it.first!!.toFloat(), it.second!!.toFloat())
+          }else{
+              binding.filterRsPrice.setValues(0.0f, 0.1f)
+          }
+      }
+      
+      viewModel.surface.observe(viewLifecycleOwner) {
+          if (it.first != null && it.second != null) {
+              binding.filterRsSurface.valueFrom =  it.first!!.toFloat()
+              binding.filterRsSurface.valueTo =  it.second!!.toFloat()
+              binding.filterRsSurface.setValues(it.first!!.toFloat(), it.second!!.toFloat())
+          }else{
+              binding.filterRsSurface.setValues(0.0f, 0.1f)
+          }
+      }
 
 
 
@@ -132,9 +140,7 @@ class PropertyListFragment : Fragment() {
                 Pair(binding.filterRsSurface.values[0], binding.filterRsSurface.values[1])
             val sellSinceFilter: Int = binding.filterRsMonth.value.roundToInt()
             val dateFormat: DateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.US)
-            val date = Calendar.getInstance()
-            date.set(MONTH,date.get(MONTH) - sellSinceFilter)
-            Log.e("testDate",date.toString())
+
             val picturesMin: Int = binding.filterRsNumberOfPictures.value.roundToInt()
             val town: List<String> =
                 if (binding.listFilterEtDropdownTownList.text.isNullOrBlank()) listOf() else binding.listFilterEtDropdownTownList.text.split(
