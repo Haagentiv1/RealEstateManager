@@ -60,6 +60,12 @@ class PropertyListFragment : Fragment() {
             binding.listFilterEtDropdownTownList.setSimpleItems(it.toTypedArray())
         }
 
+        binding.listFilterIlDropdownTownList.setStartIconOnClickListener {
+            binding.listFilterIlDropdownTownList.editText?.text?.clear()
+            binding.listFilterIlDropdownTownList.editText?.clearFocus()
+
+        }
+
         binding.propertyListBtnFilter.setOnClickListener {
             if (binding.fragmentListRlContainer.visibility == View.GONE) {
                 binding.fragmentListRlContainer.visibility = View.VISIBLE

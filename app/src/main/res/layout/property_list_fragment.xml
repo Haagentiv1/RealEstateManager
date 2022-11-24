@@ -62,6 +62,10 @@
             android:layout_margin="10dp"
             android:hint="Town filter"
             app:endIconMode="dropdown_menu"
+            app:errorEnabled="true"
+            android:focusable="false"
+            app:startIconDrawable="@drawable/ic_baseline_clear_24"
+            app:startIconTint="@android:color/holo_red_dark"
             app:hintEnabled="true">
 
             <com.google.android.material.textfield.MaterialAutoCompleteTextView
