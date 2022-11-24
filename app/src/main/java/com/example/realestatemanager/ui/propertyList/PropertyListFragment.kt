@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
+import com.example.realestatemanager.data.local.model.Property
 import com.example.realestatemanager.databinding.PropertyListFragmentBinding
 import com.example.realestatemanager.ui.utils.Type
 import dagger.hilt.android.AndroidEntryPoint
@@ -98,6 +99,7 @@ class PropertyListFragment : Fragment() {
       viewModel.priceMinMax.observe(viewLifecycleOwner) {
           if ((it.first != null && it.second != null) && (it.first!! < it.second!!)) {
               binding.filterRsPrice.valueFrom =  it.first!!.toFloat()
+              binding.filterRsPrice.valueTo = it.second!!.toFloat()
               binding.filterRsPrice.setValues(it.first!!.toFloat() , it.second!!.toFloat())
           }else{
               binding.filterRsPrice.setValues(0.0f, 0.1f)
@@ -165,6 +167,8 @@ class PropertyListFragment : Fragment() {
 
 
     }
+
+
 
     private fun createPoiDialog(list: List<String>) {
         val poiCheck = mutableListOf<String>()
