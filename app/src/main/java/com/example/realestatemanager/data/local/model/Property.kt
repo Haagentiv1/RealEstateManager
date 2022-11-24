@@ -4,7 +4,10 @@ package com.example.realestatemanager.data.local.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
+import java.time.LocalDate
+import java.util.*
 
 
 @Serializable
@@ -22,7 +25,7 @@ data class Property(
     @ColumnInfo(name = "pictures") val pictures: List<Pair<String, String>>,
     @ColumnInfo(name = "poi") val poi: List<String>?,
     @ColumnInfo(name = "status") val status: Boolean,
-    @ColumnInfo(name = "entry_date") val entryDate: String,
-    @ColumnInfo(name = "saleDate") var saleDate: String?,
+    @ColumnInfo(name = "entry_date")@Contextual val entryDate: LocalDate,
+    @ColumnInfo(name = "saleDate")@Contextual var saleDate: LocalDate?,
     @ColumnInfo(name = "estateManagerName") val estateManagerName: String
 )

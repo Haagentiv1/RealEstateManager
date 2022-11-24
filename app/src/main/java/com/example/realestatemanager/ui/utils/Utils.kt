@@ -2,8 +2,11 @@ package com.example.realestatemanager.ui.utils
 
 import android.content.Context
 import android.net.wifi.WifiManager
+import android.util.Log
 import java.text.DateFormat
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.math.roundToInt
 
@@ -38,6 +41,12 @@ object Utils {
             val dateFormat: DateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.US)
             return dateFormat.format(Date())
         }
+
+    fun stringToDate(localDate: LocalDate): String? {
+        val dt = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+        return dt.format(localDate)
+
+    }
 
     /**
      * Vérification de la connexion réseau

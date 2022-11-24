@@ -24,10 +24,13 @@ import com.example.realestatemanager.data.local.model.Property
 import com.example.realestatemanager.databinding.AddPropertyFragmentBinding
 import com.example.realestatemanager.ui.propertyDetail.PictureAdapter
 import com.example.realestatemanager.ui.utils.Type
+import com.example.realestatemanager.ui.utils.Utils
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.io.IOException
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 
@@ -41,6 +44,8 @@ class AddPropertyFragment : Fragment() {
     private val viewModel by viewModels<AddPropertyViewModel>()
     private lateinit var actualPictureFilePath: String
     private lateinit var poiDialogBuilder: AlertDialog.Builder
+    private lateinit var entryDate : LocalDate
+    private  var saleDate : LocalDate? = null
 
 
     override fun onCreateView(
@@ -71,6 +76,8 @@ class AddPropertyFragment : Fragment() {
                 .observe(viewLifecycleOwner) {
                     lifecycleScope.launch {
                         it?.let {
+                            entryDate = it.entryDate
+                            saleDate = it.saleDate
                             binding.addPropertyTvType.setText(it.type)
                             binding.addPropertyEtPrice.setText(it.price.toString())
                             binding.addPropertyEtSurface.setText(it.squareMeter.toString())
@@ -187,6 +194,7 @@ class AddPropertyFragment : Fragment() {
         }
 
         binding.addPropertyBtnSaveProperty.setOnClickListener {
+
             lifecycleScope.launch {
                 if (emptyInputTextCheck()) {
                     if (!pictureList.isNullOrEmpty()) {
@@ -206,10 +214,10 @@ class AddPropertyFragment : Fragment() {
                                 numberOfBathRooms = binding.addPropertyEtNumberOfBathRoom.text.toString()
                                     .toInt(),
                                 poi = getPoi(),
-                                status = binding.addPropertyEtSaleDate.text.isNullOrBlank(),
+                                status = saleDate != null,
                                 pictures = listOf(),
-                                entryDate = "",
-                                saleDate = "",
+                                entryDate = entryDate,
+                                saleDate = saleDate,
                                 estateManagerName = binding.addPropertyEtManager.text.toString()
                             )
                         )
@@ -226,13 +234,8 @@ class AddPropertyFragment : Fragment() {
                 } else {
                     Toast.makeText(context, "Some field are empty", Toast.LENGTH_LONG).show()
                 }
-
             }
-
-
         }
-
-
     }
 
 
@@ -256,16 +259,19 @@ class AddPropertyFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     var entryDateSetListener =
         OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+            entryDate = LocalDate.of(year,monthOfYear + 1,dayOfMonth)
             binding.addPropertyEtEntryDate.setText(
-                "$dayOfMonth/${monthOfYear + 1}/$year"
+                entryDate.toString()
             )
         }
 
     @SuppressLint("SetTextI18n")
     var saleDateSetListener =
         OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+            saleDate = LocalDate.of(year,monthOfYear + 1,dayOfMonth)
+
             binding.addPropertyEtSaleDate.setText(
-                "$dayOfMonth/${monthOfYear + 1}/$year"
+                saleDate.toString()
             )
         }
 
@@ -319,6 +325,8 @@ class AddPropertyFragment : Fragment() {
             saleDateSetListener,
             2022, 11 - 1, 19
         )
+
+
         datePicker.show()
     }
 
@@ -357,7 +365,6 @@ class AddPropertyFragment : Fragment() {
             context?.openFileOutput("$filename.jpg", MODE_PRIVATE).use { stream ->
                 if (!bmp.compress(Bitmap.CompressFormat.JPEG, 95, stream)) {
                     throw IOException("Couldn't save bitmap")
-
                 }
             }
             true

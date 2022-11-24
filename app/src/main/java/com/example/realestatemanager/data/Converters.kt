@@ -1,12 +1,12 @@
 package com.example.realestatemanager.data
 
-import android.location.Location
+
 import androidx.room.TypeConverter
-import androidx.room.TypeConverters
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import java.util.*
+import java.time.LocalDate
+
 
 object Converters {
 
@@ -24,13 +24,13 @@ object Converters {
     fun fromStringToListOfPair(value : String) = Json.decodeFromString<List<Pair<String,String>>>(value)
 
     @TypeConverter
-    fun fromTimestamp(value: Long?): Date? {
-        return value?.let { Date(it) }
+    fun fromTimestamp(value: Long?): LocalDate? {
+        return value?.let { LocalDate.ofEpochDay(value) }
     }
 
     @TypeConverter
-    fun dateToTimestamp(date: Date?): Long? {
-        return date?.time?.toLong()
+    fun dateToTimestamp(date: LocalDate?): Long? {
+        return date?.toEpochDay()
     }
 }
 
