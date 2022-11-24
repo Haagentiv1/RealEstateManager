@@ -13,11 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.realestatemanager.databinding.PropertyListFragmentBinding
 import com.example.realestatemanager.ui.utils.Type
 import dagger.hilt.android.AndroidEntryPoint
-import java.text.DateFormat
-import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Calendar.MONTH
-import java.util.Locale
+import java.time.LocalDate
 import kotlin.math.roundToInt
 
 
@@ -100,20 +96,19 @@ class PropertyListFragment : Fragment() {
         }
 
       viewModel.priceMinMax.observe(viewLifecycleOwner) {
-          if (it.first != null && it.second != null) {
+          if ((it.first != null && it.second != null) && (it.first!! < it.second!!)) {
               binding.filterRsPrice.valueFrom =  it.first!!.toFloat()
-              binding.filterRsPrice.valueTo =  it.second!!.toFloat()
-              binding.filterRsPrice.setValues(it.first!!.toFloat(), it.second!!.toFloat())
+              binding.filterRsPrice.setValues(it.first!!.toFloat() , it.second!!.toFloat())
           }else{
               binding.filterRsPrice.setValues(0.0f, 0.1f)
           }
       }
       
       viewModel.surface.observe(viewLifecycleOwner) {
-          if (it.first != null && it.second != null) {
+          if ((it.first != null && it.second != null) &&(it.first!! < it.second!!)) {
               binding.filterRsSurface.valueFrom =  it.first!!.toFloat()
               binding.filterRsSurface.valueTo =  it.second!!.toFloat()
-              binding.filterRsSurface.setValues(it.first!!.toFloat(), it.second!!.toFloat())
+              binding.filterRsSurface.setValues(it.first!!.toFloat() , it.second!!.toFloat())
           }else{
               binding.filterRsSurface.setValues(0.0f, 0.1f)
           }
@@ -138,9 +133,8 @@ class PropertyListFragment : Fragment() {
 
             val surfaceFilter: Pair<Float, Float> =
                 Pair(binding.filterRsSurface.values[0], binding.filterRsSurface.values[1])
-            val sellSinceFilter: Int = binding.filterRsMonth.value.roundToInt()
-            val dateFormat: DateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.US)
-
+            val onMarkerSinceMonth = binding.filterRsMonth.value.toLong()
+            val filterMonth = LocalDate.now().minusMonths(onMarkerSinceMonth)
             val picturesMin: Int = binding.filterRsNumberOfPictures.value.roundToInt()
             val town: List<String> =
                 if (binding.listFilterEtDropdownTownList.text.isNullOrBlank()) listOf() else binding.listFilterEtDropdownTownList.text.split(
@@ -152,7 +146,7 @@ class PropertyListFragment : Fragment() {
                     ","
                 )
 
-            viewModel.filtered(type, poi, town, priceFilter,surfaceFilter,picturesMin).observe(viewLifecycleOwner) {
+            viewModel.filtered(type, poi, town, priceFilter,surfaceFilter,picturesMin,filterMonth).observe(viewLifecycleOwner) {
                 Log.e("test", "onchanged")
                 if (it.isNotEmpty()) {
                     adapter.submitList(it)

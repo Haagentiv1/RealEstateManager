@@ -30,7 +30,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.io.IOException
 import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 
@@ -44,8 +43,8 @@ class AddPropertyFragment : Fragment() {
     private val viewModel by viewModels<AddPropertyViewModel>()
     private lateinit var actualPictureFilePath: String
     private lateinit var poiDialogBuilder: AlertDialog.Builder
-    private lateinit var entryDate : LocalDate
-    private  var saleDate : LocalDate? = null
+    private lateinit var entryDate: LocalDate
+    private var saleDate: LocalDate? = null
 
 
     override fun onCreateView(
@@ -77,7 +76,8 @@ class AddPropertyFragment : Fragment() {
                     lifecycleScope.launch {
                         it?.let {
                             entryDate = it.entryDate
-                            saleDate = it.saleDate
+                            Log.e("testEntrryDAte",it.entryDate.toString())
+                            saleDate = if (it.saleDate != null) it.saleDate!! else null
                             binding.addPropertyTvType.setText(it.type)
                             binding.addPropertyEtPrice.setText(it.price.toString())
                             binding.addPropertyEtSurface.setText(it.squareMeter.toString())
@@ -90,9 +90,14 @@ class AddPropertyFragment : Fragment() {
                             binding.addPropertyEtState.setText(it.location[2])
                             binding.addPropertyEtZipcode.setText(it.location[3])
                             binding.addPropertyEtCountry.setText(it.location[4])
-                            binding.addPropertyEtPoi.setText(it.poi.toString())
-                            binding.addPropertyEtEntryDate.setText(it.entryDate.toString())
-                            binding.addPropertyEtSaleDate.setText(it.saleDate.toString())
+                            if (!it.poi.isNullOrEmpty()) {
+                                binding.addPropertyEtPoi.setText(it.poi.toString())
+                            }
+                            binding.addPropertyEtEntryDate.setText(Utils.formatDate(entryDate))
+                            if (it.saleDate != null) {
+                                binding.addPropertyEtSaleDate.setText(Utils.formatDate(it.saleDate!!))
+                            }
+
                             binding.addPropertyEtManager.setText(it.estateManagerName)
                             viewModel.setPicturesList(it.pictures)
                         }
@@ -241,7 +246,7 @@ class AddPropertyFragment : Fragment() {
 
     private fun getPoi(): List<String> {
         val poi = binding.addPropertyEtPoi.text.toString()
-        return poi.split(",")
+        return if(poi.isEmpty()) listOf() else poi.split(",")
     }
 
 
@@ -259,19 +264,19 @@ class AddPropertyFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     var entryDateSetListener =
         OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-            entryDate = LocalDate.of(year,monthOfYear + 1,dayOfMonth)
+            entryDate = LocalDate.of(year, monthOfYear + 1, dayOfMonth)
             binding.addPropertyEtEntryDate.setText(
-                entryDate.toString()
+                Utils.formatDate(entryDate)
             )
         }
 
     @SuppressLint("SetTextI18n")
     var saleDateSetListener =
         OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-            saleDate = LocalDate.of(year,monthOfYear + 1,dayOfMonth)
-
+            saleDate = LocalDate.of(year, monthOfYear + 1, dayOfMonth)
+            val saleDateString = saleDate
             binding.addPropertyEtSaleDate.setText(
-                saleDate.toString()
+                saleDateString?.let { Utils.formatDate(it) }
             )
         }
 

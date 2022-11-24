@@ -11,6 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 import javax.inject.Inject
 
 @HiltViewModel
@@ -93,6 +94,7 @@ class PropertyListViewModel @Inject constructor(
         { value: Property, minMax: Pair<Float, Float> -> value.squareMeter >= minMax.first && value.squareMeter <= minMax.second }
     val numberOfPicturesMin =
         { value: Property, numberOfPictureMin: Int -> value.pictures.size >= numberOfPictureMin }
+    val onMarketSince = {value : Property,sinceMonth : LocalDate -> value.entryDate.isBefore(sinceMonth) }
 
 
 
@@ -102,7 +104,8 @@ class PropertyListViewModel @Inject constructor(
         town: List<String>,
         minMax: Pair<Long, Long>,
         surfaceFilter: Pair<Float, Float>,
-        picturesMin: Int
+        picturesMin: Int,
+        filterMonth: LocalDate
     ): LiveData<List<PropertyListItemViewState>> =
         liveData(context = viewModelScope.coroutineContext + Dispatchers.IO) {
 
@@ -119,6 +122,7 @@ class PropertyListViewModel @Inject constructor(
                         .and(surfacePredicate.invoke(property, surfaceFilter))
                         .and(numberOfPicturesMin.invoke(property, picturesMin))
                         .and(townPredicate.invoke(property, listOfTown))
+                        .and( onMarketSince.invoke(property,filterMonth))
                 }.map {
                     PropertyListItemViewState(
                         it.id!!,

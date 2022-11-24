@@ -42,10 +42,9 @@ object Utils {
             return dateFormat.format(Date())
         }
 
-    fun stringToDate(localDate: LocalDate): String? {
+    fun formatDate(localDate: LocalDate): String? {
         val dt = DateTimeFormatter.ofPattern("dd/MM/yyyy")
         return dt.format(localDate)
-
     }
 
     /**
